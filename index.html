@@ -75,13 +75,25 @@
               <p class="text-sm md:text-base text-blue-700">你的【宏觀視野4】極高，但【落地溝通2/3】極低。你建構了傲慢的高牆，將眾生拒之門外。</p>
             </div>
 
-            <!-- 平衡狀態 (綠燈) -->
-            <div v-if="!alertKuKu && !alertHuaiKu && !alertXingKu" class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded">
+            <!-- 🚨 新增：內在劇烈拉扯/假性平衡警報 (當存在多個極端分數時觸發) -->
+            <div v-if="alertTurbulence" class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded shadow-sm transition-all">
+              <div class="flex items-center mb-2">
+                <span class="text-2xl mr-2">⚡</span>
+                <h4 class="font-bold text-lg md:text-xl text-orange-800">內在分裂拉扯預警！(假性平衡 / 劇烈震盪)</h4>
+              </div>
+              <p class="text-sm md:text-base text-orange-700">
+                <strong>診斷：</strong> 雖然你的大維度平均分看似平衡，但你目前擁有 <strong>{{ overheatedBehaviors.length }} 條過熱行為</strong> 與 <strong>{{ frozenBehaviors.length }} 條冰凍行為</strong>！
+                你正處於「極冷與極熱、劇烈起伏」的內在撕裂狀態。這種「假性平衡」會消耗你大量的無形心力，極易在瞬間崩潰。
+              </p>
+            </div>
+
+            <!-- 平衡狀態 (綠燈 - 必須無三苦且無劇烈震盪) -->
+            <div v-if="!alertKuKu && !alertHuaiKu && !alertXingKu && !alertTurbulence" class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded">
               <div class="flex items-center mb-2">
                 <span class="text-2xl mr-2">🟢</span>
                 <h4 class="font-bold text-lg md:text-xl text-emerald-800">能量平衡 (止息狀態)</h4>
               </div>
-              <p class="text-sm md:text-base text-emerald-700">目前各項張力軸維持在健康範圍，無明顯「借高利貸」情況。請繼續保持這份覺察與平靜！</p>
+              <p class="text-sm md:text-base text-emerald-700">目前各項張力軸維持在健康範圍，且無劇烈的極端行為起伏。請繼續保持這份覺察與平靜！</p>
             </div>
 
           </div>
@@ -240,7 +252,6 @@
     createApp({
       data() {
         return {
-          // 完整 100 條資料
           behaviors: [
             // 第一大類｜內在驅動 (1A/1B)
             { id: 1, module: '1A 目標野心', desc: '設定高標準目標：以第一名或超越平均水準為目標去推進事情。', score: 5 },
@@ -272,7 +283,7 @@
             // 第二大類｜執行落地 (2A/2B)
             { id: 26, module: '2A 秩序規範', desc: '拆解任務與排程：將大目標細分為具體步驟，訂定優先順序與死線（Deadline）。', score: 5 },
             { id: 27, module: '2A 秩序規範', desc: '善用清單與視覺化：透過待辦事項（To-do list）或檢查表（Checklist）追蹤進度。', score: 5 },
-            { id: 28, module: '2A 秩序規範', desc: '嚴格遵守規則程序：按照既定制度、標準或操作手冊（SOP）準確執行。', score: 5 },
+            { id: 28, module: '2A 秩序規範', desc: '嚴格遵守規則程序：按照既定制度、標準或操作手冊（SOP）準確執行. ', score: 5 },
             { id: 29, module: '2A 秩序規範', desc: '精準把控微細瑕疵：留意別人忽略嘅細節錯誤並即時修正，追求高品質產出。', score: 5 },
             { id: 30, module: '2A 秩序規範', desc: '建立標準化流程：將重複性工作系統化、均一化，並製作手冊傳承。', score: 5 },
             { id: 31, module: '2A 秩序規範', desc: '多線並行推進專案：同時統籌多個項目，並確保各條線順利運作。', score: 5 },
@@ -290,7 +301,7 @@
             { id: 43, module: '2B 敏捷破局', desc: '迅速將想法轉化行動：縮短由「諗到」到「做出嚟」嘅時間差，邊做邊改。', score: 5 },
             { id: 44, module: '2B 敏捷破局', desc: '即時排除眼前障礙：遇到問題唔逃避、唔拖延，逐一拆解並直接解決。', score: 5 },
             { id: 45, module: '2B 敏捷破局', desc: '在資訊不全下決策：接受世事無絕對確定性，能夠喺關鍵時刻快速拍板。', score: 5 },
-            { id: 46, module: '2B 敏捷破局', desc: '穩定混亂現場：喺團隊或環境失序時，迅速介入並令事情重回正軌。', score: 5 },
+            { id: 46, module: '2B 敏捷破局', desc: '穩定混亂現場：喺團隊 or 環境失序時，迅速介入並令事情重回正軌。', score: 5 },
             { id: 47, module: '2B 敏捷破局', desc: '精準發問獲取情報：唔怕問人，懂得透過精準提問快速補齊盲點資訊。', score: 5 },
             { id: 48, module: '2B 敏捷破局', desc: '不拘泥教條打破常規：當舊規則阻礙進度時，敢於打破秩序用獨創方法解決。', score: 5 },
             { id: 49, module: '2B 敏捷破局', desc: '控制成本與資源整合：合併並善用現有資源，用最少投入撬動最大產出。', score: 5 },
@@ -365,6 +376,13 @@
         },
         frozenBehaviors() {
           return this.behaviors.filter(b => b.score <= 3);
+        },
+
+        // 🌟 新增「內在劇烈震盪/假性平衡」警報條件
+        // 如果極端高分和極端低分行爲的「總數」達到 8 條或以上，代表內在拉扯極其嚴重！
+        alertTurbulence() {
+          const totalExtremes = this.overheatedBehaviors.length + this.frozenBehaviors.length;
+          return totalExtremes >= 8;
         },
 
         // 8 大模組平均分計算
@@ -450,7 +468,7 @@
           return "傾聽與自我表達適度，人際溝通自然流暢，具有非常良好的情感邊界。";
         },
         getMindDiagnostic(val) {
-          if (val >= 7.5) return "思維過於宏大或邏輯過度運轉。想得太多、拆得太細，容易引發存在主義危機。";
+          if (val >= 7.5) return "思維過於宏大或邏輯過度運運轉。想得太多、拆得太細，容易引發存在主義危機。";
           if (val <= 3.5) return "思考維度有待拓寬。目前可能過度關注眼前瑣事，缺乏對長遠局勢的視野。";
           return "視野開闊且能保持理性，在微觀細節和宏觀戰略定位之間游刃有餘。";
         },
@@ -468,6 +486,9 @@
           }
           if (this.alertXingKu) {
             return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無和傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫暖的日常小事，感受溫度的回流。";
+          }
+          if (this.alertTurbulence) {
+            return "【狂心若歇，歇即菩提】當前『分裂拉扯』極高，處於極端的冰火兩重天中。外在維持著和諧的假象，內心實則波濤洶湧。最需要的解藥是『守中與簡化』。請立刻縮減您的待辦事項，停止追求極端的卓越，也不必刻意擺爛。在呼吸間找到一個安全的中軸，不要隨極端的情緒起伏隨波逐流。";
           }
           return "【隨遇而安，守護此時】您目前處於極佳的『能量平穩』狀態，各張力軸非常和諧。這是非常難得的『心靈止息』。請保持當下的正念覺察（Mindfulness），不貪求、不嗔恨，平靜地過好每一個當下。";
         }
