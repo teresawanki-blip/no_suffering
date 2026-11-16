@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧘 佛法三苦防爆系統 - 15題精準覺察版</title>
+  <title>🧘 佛法三苦防爆系統 - 精準覺察版</title>
   <!-- 引入穩定高可用的 Vue 3 同 Tailwind CSS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,23 +14,23 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-gray-800 font-sans p-4 md:p-8">
+<body class="bg-slate-50 text-gray-800 font-sans p-4 md:p-8 text-base">
 
   <div id="app" class="max-w-3xl mx-auto">
     
     <!-- 標題區 -->
     <div class="text-center mb-8">
       <h1 class="text-3xl md:text-4xl font-bold mb-2 text-slate-800">🧘 佛法三苦防爆系統</h1>
-      <p class="text-slate-500 text-base">這不是一份複雜的試卷，而是一面幫你『每日歇息』的心靈鏡子。</p>
+      <p class="text-slate-500 text-base md:text-lg">這不是一份複雜的試卷，而是一面幫你『每日歇息』的心靈鏡子。</p>
     </div>
 
-    <!-- 🩺 1. 心靈把脈分流器 (Concern 篩選區) -->
+    <!-- 🩺 1. 心靈把脈分流器 (用家 Concern 篩選區 - 保持在最頂部定錨) -->
     <div class="bg-white rounded-xl shadow border border-slate-200 p-6 mb-8">
       <div class="flex items-center space-x-2 mb-4">
         <span class="text-2xl">🩺</span>
-        <h2 class="text-lg font-bold text-slate-800">第一步：聽聽你當下的心聲</h2>
+        <h2 class="text-lg md:text-xl font-bold text-slate-800">第一步：聽聽你當下的心聲</h2>
       </div>
-      <p class="text-sm text-slate-500 mb-4 leading-relaxed">
+      <p class="text-sm md:text-base text-slate-500 mb-4 leading-relaxed">
         請選擇你<strong>目前最感到困擾或煩惱的範疇</strong>。系統會為你進行「針灸式精準分流」，只選出該範疇<strong>最關鍵的 15 題行為</strong>，讓你用 1 分鐘快速完成心靈自我檢測。
       </p>
       
@@ -43,7 +43,7 @@
         >
           <span class="text-xl mr-2.5">🔥</span>
           <div>
-            <div class="font-bold">能量乾枯 / 感到倦怠</div>
+            <div class="font-bold text-sm md:text-base">能量乾枯 / 感到倦怠</div>
             <div class="text-xs text-slate-400 mt-0.5">野心過載、做乜都無動力、Burnout邊緣</div>
           </div>
         </button>
@@ -55,7 +55,7 @@
         >
           <span class="text-xl mr-2.5">⚙️</span>
           <div>
-            <div class="font-bold">計畫受阻 / 嚴重拖延</div>
+            <div class="font-bold text-sm md:text-base">計畫受阻 / 嚴重拖延</div>
             <div class="text-xs text-slate-400 mt-0.5">想做但唔動手、被規矩綁死、進度混亂</div>
           </div>
         </button>
@@ -67,7 +67,7 @@
         >
           <span class="text-xl mr-2.5">🤝</span>
           <div>
-            <div class="font-bold">人際心累 / 社交焦慮</div>
+            <div class="font-bold text-sm md:text-base">人際心累 / 社交焦慮</div>
             <div class="text-xs text-slate-400 mt-0.5">討好型人格、難以拒絕人、縮埋孤立自己</div>
           </div>
         </button>
@@ -79,134 +79,40 @@
         >
           <span class="text-xl mr-2.5">🌌</span>
           <div>
-            <div class="font-bold">過度思考 / 前路虛無</div>
+            <div class="font-bold text-sm md:text-base">過度思考 / 前路虛無</div>
             <div class="text-xs text-slate-400 mt-0.5">腦架空轉、懷疑做野嘅意義、感到迷茫</div>
           </div>
         </button>
       </div>
 
       <div class="flex justify-between items-center pt-2 border-t border-slate-100">
-        <span class="text-xs text-indigo-600 font-bold flex items-center">
+        <span class="text-xs md:text-sm text-indigo-600 font-bold flex items-center">
           ⚡ 當前狀態：已為您精選該領域最核心的 {{ filteredBehaviors.length }} 題進行深度問診
         </span>
         <button 
           @click="selectFocus('all')" 
           :class="focusMode === 'all' ? 'text-indigo-600 underline font-bold' : 'text-slate-400 hover:text-slate-600'"
-          class="text-xs transition focus:outline-none"
+          class="text-xs md:text-sm transition focus:outline-none"
         >
-          我想挑戰完整 100 題檢測
+          我想挑戰完整 100 題
         </button>
       </div>
     </div>
 
-    <!-- 🎯 2. 今日心靈防爆一味藥 (今日微習慣推薦區) -->
-    <div class="bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-xl shadow-lg p-6 mb-8 border border-indigo-950">
-      <div class="flex items-center space-x-2 mb-3">
-        <span class="text-2xl">🎯</span>
-        <h2 class="text-lg font-bold tracking-wide">今日心靈防爆「一味藥」</h2>
-      </div>
-      
-      <!-- 有極端行為時，精準推薦一條 -->
-      <div v-if="todayRecommendation" class="space-y-4">
-        <p class="text-indigo-200 text-sm leading-relaxed">
-          系統在你當下最煩惱的範疇中，挑選出了<strong>今天最需要調和的 1 個黃金微習慣</strong>。今天不需要改變整個人生，只要嘗試做好這一件事：
-        </p>
-        <div class="bg-white/10 rounded-lg p-4 border border-white/10">
-          <div class="flex items-center space-x-2 mb-1.5">
-            <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-800 text-indigo-100">
-              行為 #{{ todayRecommendation.id }} · {{ todayRecommendation.module }}
-            </span>
-            <span v-if="todayRecommendation.score >= 8" class="text-xs text-orange-300 font-bold">🔴 過熱行為</span>
-            <span v-else class="text-xs text-blue-300 font-bold">❄️ 冰凍行為</span>
-          </div>
-          <p class="text-base md:text-lg font-bold text-white">{{ todayRecommendation.desc }}</p>
-        </div>
-        <p class="text-xs text-indigo-300 italic">
-          💡 <strong>心靈藥效：</strong> {{ todayRecommendation.score >= 8 ? '這項行為你最近用力過猛了，今天請試著放開它、或者反向操作一下。' : '這項行為已被你冰封很久了，今天請試著跨出最微小的一步去啟動它。' }}
-        </p>
-      </div>
-      
-      <!-- 沒有極端行為時 -->
-      <div v-else class="py-2">
-        <p class="text-base text-emerald-300 font-medium">🟢 當前範疇無明顯極端失衡，能量和諧！</p>
-        <p class="text-sm text-slate-300 mt-1">你的身心數值很平均。請拉開下方打分區調整分數，看看系統會為你推薦哪一味處方藥。</p>
-      </div>
-    </div>
-
-    <!-- 📊 3. 專屬診斷報告書 -->
+    <!-- 📋 2. 【位置調換】精選行為自我評分區 (放至中間，讓用家直接在此作答) -->
     <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden mb-8">
-      <div class="bg-slate-800 text-white px-5 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-          <span class="text-lg">📋</span>
-          <h2 class="font-bold text-base">診斷報告與實相解藥</h2>
-        </div>
-        <button @click="resetScores" class="bg-slate-700 hover:bg-slate-600 text-xs px-2.5 py-1 rounded transition">重置本區 (回復5分)</button>
-      </div>
-      
-      <div class="p-5 space-y-6">
-        <!-- 三苦與拉扯警報 -->
-        <div class="space-y-3">
-          <div v-if="alertKuKu" class="bg-red-50 border-l-4 border-red-500 p-4 rounded text-sm text-red-800">
-            <strong class="block text-base mb-1">🔥 苦苦爆發預警！(直觀衝突)</strong>
-            你的【{{ kuKuReason.overload }}】過度壓迫了【{{ kuKuReason.suppress }}】。你正在用完美主義框死宇宙，或用過度思考癱瘓行動。
-          </div>
-          <div v-if="alertHuaiKu" class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded text-sm text-amber-800">
-            <strong class="block text-base mb-1">🍂 壞苦爆發預警！(變異倦怠)</strong>
-            <span v-if="scores['1A'] <= 3 && scores['1B'] <= 3">你正處於「擺爛式」倦怠，野心與復原力雙雙結冰，需要無愧疚的大休息。</span>
-            <span v-else>你的【野心1A】透支了【復原1B】，追求「得」的執念正在加速你的崩潰。</span>
-          </div>
-          <div v-if="alertXingKu" class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-blue-800">
-            <strong class="block text-base mb-1">🌌 行苦爆發預警！(存在虛無)</strong>
-            你的【宏觀視野4】極高但【落地溝通2/3】極低。建構了傲慢的高牆，將具體的人拒之門外。
-          </div>
-          <div v-if="alertTurbulence" class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded text-sm text-orange-800">
-            <strong class="block text-base mb-1">⚡ 內在分裂預警！(冰火拉扯)</strong>
-            系統檢測到你當下關注的範疇中，同時有 <strong>{{ overheatedBehaviors.length }} 條過熱行為</strong> 與 <strong>{{ frozenBehaviors.length }} 條冰凍行為</strong>，正處於劇烈的內消耗與拉扯狀態。
-          </div>
-        </div>
-
-        <!-- 當前關注維度分數分佈 -->
-        <div class="grid grid-cols-2 gap-3 text-xs">
-          <div class="p-3 bg-slate-50 rounded border border-slate-100" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'drive'}">
-            <div class="font-bold text-slate-700">🔥 驅動 (1A/1B): {{ driveAvg.toFixed(1) }}分</div>
-            <div class="text-slate-500 mt-1 scale-90 origin-left">{{ getDimensionStatusText(driveAvg) }}</div>
-          </div>
-          <div class="p-3 bg-slate-50 rounded border border-slate-100" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'execute'}">
-            <div class="font-bold text-slate-700">⚙️ 落地 (2A/2B): {{ executeAvg.toFixed(1) }}分</div>
-            <div class="text-slate-500 mt-1 scale-90 origin-left">{{ getDimensionStatusText(executeAvg) }}</div>
-          </div>
-          <div class="p-3 bg-slate-50 rounded border border-slate-100" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'relation'}">
-            <div class="font-bold text-slate-700">🤝 互動 (3A/3B): {{ relationAvg.toFixed(1) }}分</div>
-            <div class="text-slate-500 mt-1 scale-90 origin-left">{{ getDimensionStatusText(relationAvg) }}</div>
-          </div>
-          <div class="p-3 bg-slate-50 rounded border border-slate-100" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'mind'}">
-            <div class="font-bold text-slate-700">🌌 思維 (4A/4B): {{ mindAvg.toFixed(1) }}分</div>
-            <div class="text-slate-500 mt-1 scale-90 origin-left">{{ getDimensionStatusText(mindAvg) }}</div>
-          </div>
-        </div>
-
-        <!-- 藥方建議 -->
-        <div class="bg-indigo-50/50 border border-indigo-100 rounded-lg p-4 text-sm text-indigo-950">
-          <h4 class="font-bold mb-1 flex items-center"><span class="mr-1">💊</span> 佛法實相調和指南</h4>
-          <p class="leading-relaxed">{{ getSpiritualCure() }}</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 📋 4. 精選行為自我評分區 -->
-    <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden mb-12">
       <div class="bg-slate-100 px-6 py-4 flex justify-between items-center border-b border-slate-200">
         <div class="flex items-center space-x-2">
           <span class="text-lg">📋</span>
-          <span class="font-bold text-base text-slate-700">專屬評估行為打分區</span>
+          <span class="font-bold text-base md:text-lg text-slate-700">專屬評估行為打分區</span>
         </div>
-        <span class="text-xs bg-indigo-100 text-indigo-800 font-bold px-2.5 py-1 rounded">
+        <span class="text-xs md:text-sm bg-indigo-100 text-indigo-800 font-bold px-2.5 py-1 rounded">
           共需評估 {{ filteredBehaviors.length }} 題
         </span>
       </div>
       
       <div class="p-4 md:p-6 h-[450px] overflow-y-auto">
-        <div v-for="item in filteredBehaviors" :key="item.id" class="flex flex-col md:flex-row md:items-center justify-between py-3.5 border-b border-slate-100 hover:bg-slate-50 transition px-2 rounded">
+        <div v-for="item in filteredBehaviors" :key="item.id" class="flex flex-col md:flex-row md:items-center justify-between py-4 border-b border-slate-100 hover:bg-slate-50 transition px-2 rounded">
           <div class="flex-1 mb-2 md:mb-0 pr-4">
             <div class="flex items-center mb-1">
               <span class="text-xs font-mono text-slate-400 w-6">{{ item.id }}.</span>
@@ -216,17 +122,115 @@
               <span v-if="item.score >= 8" class="text-xs text-red-600 font-bold">🔴 過熱</span>
               <span v-if="item.score <= 3" class="text-xs text-blue-600 font-bold">❄️ 冰凍</span>
             </div>
-            <p class="text-sm text-slate-700 font-medium pl-8">{{ item.desc }}</p>
+            <p class="text-sm md:text-base text-slate-700 font-medium pl-8 leading-relaxed">{{ item.desc }}</p>
           </div>
           
           <div class="flex items-center w-full md:w-48 pl-8 md:pl-0">
             <span class="text-xs text-slate-400 mr-2 w-4">1</span>
             <input type="range" v-model.number="item.score" @input="saveScores" min="1" max="10" class="flex-1 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
             <span class="text-xs text-slate-400 ml-2 w-4">10</span>
-            <span :class="{'text-red-600': item.score>=8, 'text-blue-600': item.score<=3}" class="font-bold text-base w-8 text-right ml-2">
+            <span :class="{'text-red-600': item.score>=8, 'text-blue-600': item.score<=3}" class="font-bold text-base md:text-lg w-8 text-right ml-2">
               {{ item.score }}
             </span>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🎯 3. 【位置調換】今日心靈防爆一味藥 (置於結果報告前) -->
+    <div class="bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-xl shadow-lg p-6 mb-8 border border-indigo-950">
+      <div class="flex items-center space-x-2 mb-3">
+        <span class="text-2xl">🎯</span>
+        <h2 class="text-lg md:text-xl font-bold tracking-wide">今日心靈防爆「一味藥」</h2>
+      </div>
+      
+      <!-- 有極端行為時 -->
+      <div v-if="todayRecommendation" class="space-y-4">
+        <p class="text-indigo-200 text-sm md:text-base leading-relaxed text-slate-300">
+          系統在你當下最煩惱的範疇中，挑選出了<strong>今天最需要調和的 1 個黃金微習慣</strong>。今天不需要改變整個人生，只要嘗試做好這一件事：
+        </p>
+        <div class="bg-white/10 rounded-lg p-5 border border-white/10">
+          <div class="flex items-center space-x-2 mb-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-800 text-indigo-100">
+              行為 #{{ todayRecommendation.id }} · {{ todayRecommendation.module }}
+            </span>
+            <span v-if="todayRecommendation.score >= 8" class="text-xs md:text-sm text-orange-300 font-bold">🔴 過熱行為</span>
+            <span v-else class="text-xs md:text-sm text-blue-300 font-bold">❄️ 冰凍行為</span>
+          </div>
+          <p class="text-lg md:text-xl font-bold text-white leading-normal">{{ todayRecommendation.desc }}</p>
+        </div>
+        <p class="text-sm md:text-base text-indigo-200 leading-relaxed">
+          💡 <strong>心靈藥效：</strong> {{ todayRecommendation.score >= 8 ? '這項行為你最近用力過猛了，今天請試著放開它、或者反向操作一下。' : '這項行為已被你冰封很久了，今天請試著跨出最微小的一步去啟動它。' }}
+        </p>
+      </div>
+      
+      <!-- 沒有極端行為時 -->
+      <div v-else class="py-2">
+        <p class="text-base md:text-lg text-emerald-300 font-medium">🟢 當前範疇無明顯極端失衡，能量和諧！</p>
+        <p class="text-sm md:text-base text-slate-300 mt-1">你的身心數值很平均。請拉開上方打分區調整分數，看看系統會為你推薦哪一味處方藥。</p>
+      </div>
+    </div>
+
+    <!-- 📊 4. 【位置調換】專屬診斷報告書 (置於最底部，完美收尾) -->
+    <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden mb-12">
+      <div class="bg-slate-800 text-white px-5 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <span class="text-lg">📋</span>
+          <h2 class="font-bold text-base md:text-lg">診斷報告與實相解藥</h2>
+        </div>
+        <button @click="resetScores" class="bg-slate-700 hover:bg-slate-600 text-xs md:text-sm px-2.5 py-1 rounded transition">重置本區 (回復5分)</button>
+      </div>
+      
+      <div class="p-5 space-y-6">
+        <!-- 三苦與拉扯警報 -->
+        <div class="space-y-4">
+          <div v-if="alertKuKu" class="bg-red-50 border-l-4 border-red-500 p-5 rounded text-sm md:text-base text-red-800 leading-relaxed">
+            <strong class="block text-base md:text-lg mb-1.5">🔥 苦苦爆發預警！(直觀衝突)</strong>
+            你的【{{ kuKuReason.overload }}】過度壓迫了【{{ kuKuReason.suppress }}】。你正在用完美主義框死宇宙，或用過度思考癱瘓行動。
+          </div>
+          <div v-if="alertHuaiKu" class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded text-sm md:text-base text-amber-800 leading-relaxed">
+            <strong class="block text-base md:text-lg mb-1.5">🍂 壞苦爆發預警！(變異倦怠)</strong>
+            <span v-if="scores['1A'] <= 3 && scores['1B'] <= 3">你正處於「擺爛式」倦怠，野心與復原力雙雙結冰，需要無愧疚的大休息。</span>
+            <span v-else>你的【野心1A】透支了【復原1B】，追求「得」的執念正在加速你的崩潰。</span>
+          </div>
+          <div v-if="alertXingKu" class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded text-sm md:text-base text-blue-800 leading-relaxed">
+            <strong class="block text-base md:text-lg mb-1.5">🌌 行苦爆發預警！(存在虛無)</strong>
+            你的【宏觀視野4】極高但【落地溝通2/3】極低。建構了傲慢的高牆，將具體的人拒之門外。
+          </div>
+          <div v-if="alertTurbulence" class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded text-sm md:text-base text-orange-800 leading-relaxed">
+            <strong class="block text-base md:text-lg mb-1.5">⚡ 內在分裂預警！(冰火拉扯)</strong>
+            系統檢測到你當下關注的範疇中，同時有 <strong>{{ overheatedBehaviors.length }} 條過熱行為</strong> 與 <strong>{{ frozenBehaviors.length }} 條冰凍行為</strong>，正處於劇烈的內消耗與拉扯狀態。
+          </div>
+        </div>
+
+        <!-- 四大範疇當前得分 -->
+        <div class="grid grid-cols-2 gap-4 text-sm md:text-base">
+          <div class="p-4 bg-slate-50 rounded border border-slate-100 shadow-sm" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'drive'}">
+            <div class="font-bold text-slate-800 text-base">🔥 驅動 (1A/1B)</div>
+            <div class="text-indigo-600 font-bold mt-1 text-sm md:text-base">{{ driveAvg.toFixed(1) }} 分 · {{ getDimensionStatusText(driveAvg) }}</div>
+          </div>
+          <div class="p-4 bg-slate-50 rounded border border-slate-100 shadow-sm" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'execute'}">
+            <div class="font-bold text-slate-800 text-base">⚙️ 落地 (2A/2B)</div>
+            <div class="text-indigo-600 font-bold mt-1 text-sm md:text-base">{{ executeAvg.toFixed(1) }} 分 · {{ getDimensionStatusText(executeAvg) }}</div>
+          </div>
+          <div class="p-4 bg-slate-50 rounded border border-slate-100 shadow-sm" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'relation'}">
+            <div class="font-bold text-slate-800 text-base">🤝 互動 (3A/3B)</div>
+            <div class="text-indigo-600 font-bold mt-1 text-sm md:text-base">{{ relationAvg.toFixed(1) }} 分 · {{ getDimensionStatusText(relationAvg) }}</div>
+          </div>
+          <div class="p-4 bg-slate-50 rounded border border-slate-100 shadow-sm" :class="{'ring-2 ring-indigo-500 bg-indigo-50/50': focusMode === 'mind'}">
+            <div class="font-bold text-slate-800 text-base">🌌 思維 (4A/4B)</div>
+            <div class="text-indigo-600 font-bold mt-1 text-sm md:text-base">{{ mindAvg.toFixed(1) }} 分 · {{ getDimensionStatusText(mindAvg) }}</div>
+          </div>
+        </div>
+
+        <!-- 藥方建議 -->
+        <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-5 shadow-sm">
+          <h4 class="font-bold text-base md:text-lg text-indigo-900 mb-2 flex items-center">
+            <span class="mr-2">💊</span> 佛法防爆實相調和指南
+          </h4>
+          <p class="leading-relaxed text-base md:text-lg text-indigo-950 font-medium whitespace-pre-line">
+            {{ getSpiritualCure() }}
+          </p>
         </div>
       </div>
     </div>
@@ -240,7 +244,7 @@
     createApp({
       data() {
         return {
-          focusMode: 'drive', // 預設聚焦
+          focusMode: 'drive', // 預設聚焦於「能量乾枯」
           behaviors: [
             // 第一大類｜內在驅動 (1A/1B) - 精選 15 題
             { id: 1, module: '1A 目標野心', desc: '設定高標準目標：以第一名或超越平均水準為目標去推進事情。', score: 5 },
@@ -256,9 +260,9 @@
             { id: 16, module: '1B 好奇進化', desc: '從失敗中提煉經驗：將每次撞板視為學習養分，反覆覆盤並修正缺點。', score: 5 },
             { id: 18, module: '1B 好奇進化', desc: '投入資源自我增值：願意花時間、金錢參加課程、研討會或請教專家。', score: 5 },
             { id: 19, module: '1B 好奇進化', desc: '不斷尋找更佳解法：唔滿足於現有做法，持續尋找更高效、更聰明嘅路徑。', score: 5 },
-            { id: 21, module: '1B 好奇進化', desc: '精準自我覺察：每日反省自己嘅言言行，客觀評估自己嘅強弱項。', score: 5 },
+            { id: 21, module: '1B 好奇進化', desc: '精準自我覺察：每日反省自己嘅言行，客觀評估自己嘅強弱項。', score: 5 },
             { id: 24, module: '1B 好奇進化', desc: '建立專屬復原機制：了解自己嘅情緒週期，識得喺疲憊時照顧好自己。', score: 5 },
-
+            
             // 第二大類｜執行落地 (2A/2B) - 精選 15 題
             { id: 26, module: '2A 秩序規範', desc: '拆解任務與排程：將大目標細分為具體步驟，訂定優先順序與死線（Deadline）。', score: 5 },
             { id: 27, module: '2A 秩序規範', desc: '善用清單與視覺化：透過待辦事項（To-do list）或檢查表（Checklist）追蹤進度。', score: 5 },
@@ -279,7 +283,7 @@
             // 第三大類｜人際互動 (3A/3B) - 精選 15 題
             { id: 51, module: '3A 同理傾聽', desc: '深度同理他人情緒：設身處地感受對方嘅焦慮、悲傷或喜悅，感同身受。', score: 5 },
             { id: 52, module: '3A 同理傾聽', desc: '耐心傾聽不打斷：先聽對方講晒，唔急住批判、否定或者插嘴。', score: 5 },
-            { id: 53, module: '3A 同理傾聽', desc: '察劇細微情緒變化：從對方嘅表情、語氣同肢體動作，讀懂言外之意。', score: 5 },
+            { id: 53, module: '3A 同理傾聽', desc: '察覺細微情緒變化：從對方嘅表情、語氣同肢體動作，讀懂言外之意。', score: 5 },
             { id: 55, module: '3A 同理傾聽', desc: '包容多元性格與價值觀：接納每個人嘅獨特之處，唔以外表或過去評判他人。', score: 5 },
             { id: 56, module: '3A 同理傾聽', desc: '營造安全表達氛圍：創造令人放鬆嘅環境，令每個人都敢於坦誠講出真話。', score: 5 },
             { id: 57, module: '3A 同理傾聽', desc: '即時給予肯定與讚美：留意他人嘅優點同微小進步，大方表達感謝與鼓勵。', score: 5 },
@@ -302,7 +306,7 @@
             { id: 82, module: '4A 邏輯解構', desc: '精準診斷問題成因：出錯時唔急住撲火，而係徹底調查背後嘅系統性原因。', score: 5 },
             { id: 85, module: '4A 邏輯解構', desc: '識別並評估潛在風險：喺行動前預判所有可能出錯嘅地方，提前做好風險對沖。', score: 5 },
             { id: 87, module: '4A 邏輯解構', desc: '區分「事實」與「觀點」：喺溝通同決策時，清楚分辨邊啲係客觀存在、邊啲係主觀臆測。', score: 5 },
-            { id: 89, module: '4B 戰略佈局', desc: '俯瞰全局掌握全貌：跳出局部細節，從更高維度睇清成件事嘅大局與定位。', score: 5 },
+            { id: 89, module: '4B 戰略佈局', desc: '俯瞰全局掌握全貌：跳出局部細節，從更高維度睇清成件事大局與定位。', score: 5 },
             { id: 90, module: '4B 戰略佈局', desc: '描繪清晰長遠願景：對未來有明確畫面，並能向團隊清晰傳達長期方向。', score: 5 },
             { id: 91, module: '4B 戰略佈局', desc: '以終為始倒推路徑：先定立 3 至 5 年後嘅理想藍圖，再反推今日應該採取咩行動。', score: 5 },
             { id: 93, module: '4B 戰略佈局', desc: '制定系統性取勝戰略：動手前先做頂層設計，透過策略佈局而非蠻力去贏得結果。', score: 5 },
@@ -329,7 +333,7 @@
           return this.filteredBehaviors.filter(b => b.score <= 3);
         },
 
-        // 今日核心推薦一條極端行為，作為微習慣藥方
+        // 今日唯一藥方推薦
         todayRecommendation() {
           const extremes = [...this.overheatedBehaviors, ...this.frozenBehaviors];
           if (extremes.length === 0) return null;
@@ -338,13 +342,13 @@
           return extremes[index];
         },
 
-        // 內在分裂拉扯預警 (分流模式下 >= 4 條，全面模式下 >= 8 條)
+        // 分裂拉扯警告
         alertTurbulence() {
           const limit = this.focusMode === 'all' ? 8 : 4;
           return (this.overheatedBehaviors.length + this.frozenBehaviors.length) >= limit;
         },
 
-        // 專屬精簡分流題目
+        // 中醫診斷分流邏輯 (15題)
         filteredBehaviors() {
           if (this.focusMode === 'drive') {
             const driveIds = [1, 2, 4, 5, 6, 7, 9, 10, 14, 15, 16, 18, 19, 21, 24];
@@ -362,10 +366,10 @@
             const mindIds = [76, 77, 78, 79, 81, 82, 85, 87, 89, 90, 91, 93, 94, 98, 100];
             return this.behaviors.filter(b => mindIds.includes(b.id));
           }
-          return this.behaviors; // 'all' 則顯示全部 100 題
+          return this.behaviors; // 'all' 全面檢測
         },
 
-        // 8 大範疇平均分
+        // 8 大模組平均分
         scores() {
           return {
             '1A': this.getAverageByModule('1A 目標野心'),
@@ -380,7 +384,7 @@
         },
         threshold() { return 2.5; },
         
-        // --- 三苦警報判斷邏輯 ---
+        // --- 核心三苦判斷邏輯 ---
         alertKuKu() {
           const tension1 = this.scores['2A'] / Math.max(1, this.scores['3A']);
           const tension2 = this.scores['4A'] / Math.max(1, this.scores['2B']);
@@ -445,16 +449,15 @@
           this.filteredBehaviors.forEach(b => b.score = 5);
           this.saveScores();
         },
+
+        // --- 診斷分析文本 ---
         getDimensionStatusText(val) {
-          if (val >= 7.5) return '🔴 過度張力 (過熱)';
-          if (val <= 3.5) return '❄️ 動力不足 (冰凍)';
-          return '🟢 健康運作 (平穩)';
+          if (val >= 7.5) return '🔴 過熱';
+          if (val <= 3.5) return '❄️ 冰凍';
+          return '🟢 平穩';
         },
-        getDimensionStatusClass(val) {
-          if (val >= 7.5) return 'bg-red-100 text-red-800';
-          if (val <= 3.5) return 'bg-blue-100 text-blue-800';
-          return 'bg-emerald-100 text-emerald-800';
-        },
+
+        // --- 綜合靈性解藥建議 ---
         getSpiritualCure() {
           if (this.alertKuKu) {
             return "【諸行無常，放手實修】當前『苦苦』極高。最核心的解藥是『破除我執』。請停止用完美主義折磨自己或他人。如果是 2A 秩序過高，請試著放手交給他人，合上電腦靜坐 3 分鐘；如果是 4A 邏輯過高，請立刻挑選一件最微小的實事著手去做，用身體打破思考的空轉。";
@@ -463,15 +466,15 @@
             if (this.scores['1A'] <= 3 && this.scores['1B'] <= 3) {
               return "【成住壞空，無愧休息】當前動力乾涸。這是身心靈強制進入『空』的求救信號。最上乘的解藥是無愧疚感地進入『大休息』，去大自然散散步，或用完全不求回報、不求進步的心態去做好一件日常小事，重新滋養靈魂。";
             }
-            return "【因緣果報，拒絕過載】當前『壞苦』警報響起，您正在高強度透支能量。解藥為『建立神聖邊界』。請勇敢地對過度的外部迎合（3A）或過高的野心目標（1A）說「不」，並在日曆上劃出絕對不可侵犯的自我滋養時間。";
+            return "【因緣果報，拒絕過載】當前『壞苦』警報響起，您正在高強度透支能量。解藥為『建立神聖邊界』。請勇敢地對過度的外部迎合（3A）或過高的野心目標（1A）說「不」，在日曆上劃出絕對不可侵犯的自我滋養時間。";
           }
           if (this.alertXingKu) {
-            return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無和傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫慢、細微的日常小事。";
+            return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無 and 傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫暖的日常小事。";
           }
           if (this.alertTurbulence) {
-            return "【狂心若歇，歇即菩提】當前在此範疇中『冰火兩重天』極高。外在看起來相安無事（平均分在 5-6 分），實則內心深處正處於激烈震盪與對抗中（有些拉到極高，有些逃避到極低）。最需要的解藥是『守中與簡化』。今天請停止追求極端的卓越，也不必刻意擺爛，在呼吸間找到一個安全的中軸。";
+            return "【狂心若歇，歇即菩提】當前在此範疇中『冰火兩重天』極高。外在看起來相安無事（平均分在 5-6 分），內心實則波濤洶湧。最需要的解藥是『守中與簡化』。今天請停止追求極端的卓越，也不必刻意擺爛，在呼吸間找到一個安全的中軸。";
           }
-          return "【隨遇而安，守護此時】您目前處於極佳的『能量平穩』狀態，各張力軸和諧。請保持當下的正念覺察（Mindfulness），不貪求、不嗔恨，平靜地過好當下。";
+          return "【隨遇而安，守護此時】您目前在此範疇處於極佳的『能量平穩』狀態，各張力軸和諧。請保持當下的正念覺察（Mindfulness），不貪求、不嗔恨，平靜地過好當下。";
         }
       }
     }).mount('#app');
