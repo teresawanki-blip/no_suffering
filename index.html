@@ -7,45 +7,108 @@
   <!-- 引入 Vue 3 同 Tailwind CSS -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 自訂滑桿顏色 */
+    input[type=range]::-webkit-slider-thumb {
+      background: #4F46E5;
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-gray-800 font-sans p-6">
-  <div id="app" class="max-w-3xl mx-auto">
-    <h1 class="text-3xl font-bold text-center mb-2">🧘 佛法三苦防爆儀表板</h1>
-    <p class="text-center text-gray-500 mb-8">為你最近的行為打分 (1-10分)，即時診斷你的能量狀態</p>
-
-    <!-- 儀表板與警告區 -->
-    <div v-if="kuKuAlert" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8 shadow-sm">
-      <h3 class="font-bold text-lg">🔥 苦苦爆發預警！(嚴重高利貸)</h3>
-      <p>診斷：你的【執行力 2A】過度壓迫了【人際同理 3A】。你正在用完美主義框死宇宙。</p>
-      <p class="mt-2 font-bold">💊 即時解藥：請調用 3A (第52條) - 閉嘴聽對方講完 3 分鐘。</p>
+<body class="bg-slate-50 text-gray-800 font-sans p-4 md:p-8">
+  <div id="app" class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold mb-3 text-slate-800">🧘 佛法三苦防爆系統</h1>
+      <p class="text-slate-500">為你最近的行為打分 (1-10分)，即時診斷你的能量狀態與「高利貸指數」</p>
     </div>
 
-    <!-- 評分列表區 -->
-    <div class="bg-white rounded-lg shadow p-6">
-      <h2 class="text-xl font-bold mb-4 border-b pb-2">📋 核心行為自我評分</h2>
+    <!-- 🌟 動態三苦警報器 (Dashboard) 🌟 -->
+    <div class="mb-10 space-y-4">
       
-      <div v-for="item in behaviors" :key="item.id" class="flex items-center justify-between py-3 border-b border-gray-100">
-        <div class="flex-1">
-          <span class="inline-block bg-slate-200 text-slate-700 text-xs px-2 py-1 rounded mr-2">{{ item.module }}</span>
-          <span>{{ item.desc }}</span>
+      <!-- 苦苦警報 (2A vs 3A 或 4A vs 2B) -->
+      <div v-if="alertKuKu" class="bg-red-50 border-l-4 border-red-500 p-5 rounded shadow-sm transition-all">
+        <div class="flex items-center mb-2">
+          <span class="text-2xl mr-2">🔥</span>
+          <h3 class="font-bold text-lg text-red-800">苦苦爆發預警！(直觀衝突 / 嚴重高利貸)</h3>
         </div>
-        <div class="w-32 flex items-center">
-          <input type="range" v-model.number="item.score" min="1" max="10" class="w-full mr-2">
-          <span class="font-bold w-6 text-right">{{ item.score }}</span>
+        <p class="text-red-700 mb-2"><strong>診斷：</strong> 你的【{{ kuKuReason.overload }}】過度壓迫了【{{ kuKuReason.suppress }}】。你正在用完美主義框死宇宙，或用過度思考癱瘓行動。</p>
+        <p class="text-red-800 font-medium bg-red-100 p-2 rounded"><strong>💊 實相解藥：</strong> 諸法無常。請立即調用對立面被壓抑的行為（如：閉嘴傾聽 3 分鐘，或定 15 分鐘死線先做一步）。</p>
+      </div>
+
+      <!-- 壞苦警報 (1A vs 1B 或 3A過高) -->
+      <div v-if="alertHuaiKu" class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded shadow-sm transition-all">
+        <div class="flex items-center mb-2">
+          <span class="text-2xl mr-2">🍂</span>
+          <h3 class="font-bold text-lg text-amber-800">壞苦爆發預警！(變異倦怠 / Burnout邊緣)</h3>
+        </div>
+        <p class="text-amber-700 mb-2"><strong>診斷：</strong> 你的【野心1A】透支了【復原1B】，或【迎合3A】失去了自我。強行榨乾自己追求「得」，只會加速崩潰。</p>
+        <p class="text-amber-800 font-medium bg-amber-100 p-2 rounded"><strong>💊 實相解藥：</strong> 成住壞空。請立即建立復原機制，無內疚感地斷聯休息，或勇敢亮出底線說「不」。</p>
+      </div>
+
+      <!-- 行苦警報 (4AB過高 2B/3B過低) -->
+      <div v-if="alertXingKu" class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded shadow-sm transition-all">
+        <div class="flex items-center mb-2">
+          <span class="text-2xl mr-2">🌌</span>
+          <h3 class="font-bold text-lg text-blue-800">行苦爆發預警！(存在虛無 / 孤立傲慢)</h3>
+        </div>
+        <p class="text-blue-700 mb-2"><strong>診斷：</strong> 你的【宏觀視野4】極高，但【落地溝通2/3】極低。你建構了傲慢的高牆，將眾生拒之門外。</p>
+        <p class="text-blue-800 font-medium bg-blue-100 p-2 rounded"><strong>💊 實相解藥：</strong> 同體大悲。請降維溝通，善用故事比喻連結人心，或動手做一件微小實事感受溫度。</p>
+      </div>
+      
+      <!-- 平衡狀態 (冇燈著) -->
+      <div v-if="!alertKuKu && !alertHuaiKu && !alertXingKu" class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded shadow-sm">
+        <h3 class="font-bold text-lg text-emerald-800">🟢 能量平衡 (止息)</h3>
+        <p class="text-emerald-700">目前各項張力軸維持在健康範圍，無明顯「借高利貸」情況。繼續保持覺察！</p>
+      </div>
+    </div>
+
+    <!-- 📋 100 行為評分區 📋 -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
+      <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center sticky top-0 z-10">
+        <h2 class="text-xl font-bold">📋 100 核心行為自我評分</h2>
+        <button @click="resetScores" class="bg-slate-600 hover:bg-slate-500 text-sm px-3 py-1 rounded transition">一鍵重置 (5分)</button>
+      </div>
+      
+      <div class="p-4 md:p-6 h-[600px] overflow-y-auto">
+        <!-- 使用 v-for 迴圈渲染 100 條資料 -->
+        <div v-for="item in behaviors" :key="item.id" class="flex flex-col md:flex-row md:items-center justify-between py-4 border-b border-slate-100 hover:bg-slate-50 transition px-2 rounded">
+          
+          <div class="flex-1 mb-3 md:mb-0 pr-4">
+            <div class="flex items-center mb-1">
+              <span class="text-xs font-mono text-slate-400 w-6">{{ item.id }}.</span>
+              <span :class="getModuleColor(item.module)" class="text-xs font-bold px-2 py-0.5 rounded shadow-sm mr-2 border">
+                {{ item.module }}
+              </span>
+              <!-- 即時狀態標籤 (過熱/冰凍) -->
+              <span v-if="item.score >= 8" class="text-xs text-red-600 font-bold">🔴 過熱</span>
+              <span v-if="item.score <= 3" class="text-xs text-blue-600 font-bold">❄️ 冰凍</span>
+            </div>
+            <p class="text-sm md:text-base text-slate-700 font-medium pl-8">{{ item.desc }}</p>
+          </div>
+          
+          <!-- 滑桿區域 -->
+          <div class="flex items-center w-full md:w-48 pl-8 md:pl-0">
+            <span class="text-xs text-slate-400 mr-2 w-4">1</span>
+            <input type="range" v-model.number="item.score" min="1" max="10" class="flex-1 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+            <span class="text-xs text-slate-400 ml-2 w-4">10</span>
+            <span :class="{'text-red-600': item.score>=8, 'text-blue-600': item.score<=3}" class="font-bold text-lg w-8 text-right ml-2">
+              {{ item.score }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Vue.js 邏輯區 -->
   <script>
     const { createApp } = Vue;
 
     createApp({
       data() {
         return {
-          // 這裡將會放入你完整的 100 條行為 JSON 數據
+          // 完整 100 條資料
           behaviors: [
-            // 第一大類｜內在驅動
+            // 第一大類｜內在驅動 (1A/1B)
             { id: 1, module: '1A 目標野心', desc: '設定高標準目標：以第一名或超越平均水準為目標去推進事情。', score: 5 },
             { id: 2, module: '1A 目標野心', desc: '果斷啟動行動：唔猶豫、唔怕「第一次」，諗到就即刻開始做。', score: 5 },
             { id: 3, module: '1A 目標野心', desc: '無懼風險挑戰：勇於踏入未曾探索嘅高難度或無前例領域。', score: 5 },
@@ -72,7 +135,7 @@
             { id: 24, module: '1B 好奇進化', desc: '建立專屬復原機制：了解自己嘅情緒週期，識得喺疲憊時照顧好自己。', score: 5 },
             { id: 25, module: '1B 好奇進化', desc: '實踐核心價值觀：按照內心最重視嘅道德與理念行事，保持言行一致。', score: 5 },
             
-            // 第二大類｜執行落地
+            // 第二大類｜執行落地 (2A/2B)
             { id: 26, module: '2A 秩序規範', desc: '拆解任務與排程：將大目標細分為具體步驟，訂定優先順序與死線（Deadline）。', score: 5 },
             { id: 27, module: '2A 秩序規範', desc: '善用清單與視覺化：透過待辦事項（To-do list）或檢查表（Checklist）追蹤進度。', score: 5 },
             { id: 28, module: '2A 秩序規範', desc: '嚴格遵守規則程序：按照既定制度、標準或操作手冊（SOP）準確執行。', score: 5 },
@@ -99,7 +162,7 @@
             { id: 49, module: '2B 敏捷破局', desc: '控制成本與資源整合：合併並善用現有資源，用最少投入撬動最大產出。', score: 5 },
             { id: 50, module: '2B 敏捷破局', desc: '在死線前爆發衝刺：具備喺最後關頭集中精力、壓線完成任務嘅爆發力。', score: 5 },
 
-            // 第三大類｜人際互動
+            // 第三大類｜人際互動 (3A/3B)
             { id: 51, module: '3A 同理傾聽', desc: '深度同理他人情緒：設身處地感受對方嘅焦慮、悲傷或喜悅，感同身受。', score: 5 },
             { id: 52, module: '3A 同理傾聽', desc: '耐心傾聽不打斷：先聽對方講晒，唔急住批判、否定或者插嘴。', score: 5 },
             { id: 53, module: '3A 同理傾聽', desc: '察覺細微情緒變化：從對方嘅表情、語氣同肢體動作，讀懂言外之意。', score: 5 },
@@ -126,7 +189,7 @@
             { id: 74, module: '3B 影響引導', desc: '管理他人期望：事先講清楚規則、底線同預期結果，減少日後誤解。', score: 5 },
             { id: 75, module: '3B 影響引導', desc: '以身作則帶動團隊：用實際行動而非空口說白話去影響身邊人跟隨。', score: 5 },
 
-            // 第四大類｜思維視野
+            // 第四大類｜思維視野 (4A/4B)
             { id: 76, module: '4A 邏輯解構', desc: '直擊事物底層本質：唔被表面現象迷惑，習慣追問「點解」，直達問題根源。', score: 5 },
             { id: 77, module: '4A 邏輯解構', desc: '基於數據與證據推理：講求客觀事實，從海量資訊中篩選高可信度情報做判斷。', score: 5 },
             { id: 78, module: '4A 邏輯解構', desc: '多維度批判性思考：習慣從唔同角度審視同一個問題，重新檢視既有結論。', score: 5 },
@@ -153,24 +216,71 @@
             { id: 99, module: '4B 戰略佈局', desc: '理解系統動態平衡：明白世事有得必有失，懂得喺唔同力量之間攞平衡而唔走極端。', score: 5 },
             { id: 100, module: '4B 戰略佈局', desc: '具備元認知抽離視角：喺行動同情緒發生嘅當下，能夠用「上帝視角」觀察自己嘅運作狀態。', score: 5 }
           ]
-
+        }
+      },
       computed: {
-        // 計算各模組平均分
-        score2A() {
-          const items = this.behaviors.filter(b => b.module === '2A 秩序規範');
+        // 工具函數：計算某個模組嘅平均分 (預防 0 除錯)
+        getAvg(moduleName) {
+          const items = this.behaviors.filter(b => b.module === moduleName);
+          if (items.length === 0) return 1; 
           return items.reduce((sum, b) => sum + b.score, 0) / items.length;
         },
-        score3A() {
-          const items = this.behaviors.filter(b => b.module === '3A 同理傾聽');
-          return items.reduce((sum, b) => sum + b.score, 0) / items.length;
+        // 獲取所有 8 大模組嘅平均分
+        scores() {
+          return {
+            '1A': this.getAvg('1A 目標野心'),
+            '1B': this.getAvg('1B 好奇進化'),
+            '2A': this.getAvg('2A 秩序規範'),
+            '2B': this.getAvg('2B 敏捷破局'),
+            '3A': this.getAvg('3A 同理傾聽'),
+            '3B': this.getAvg('3B 影響引導'),
+            '4A': this.getAvg('4A 邏輯解構'),
+            '4B': this.getAvg('4B 戰略佈局')
+          }
         },
-        // 計算高利貸指數 (超載端 / 壓抑端)
-        tension1() {
-          return this.score2A / Math.max(1, this.score3A);
+        // 高利貸閾值
+        threshold() { return 2.5; },
+        
+        // --- 核心三苦判斷邏輯 ---
+        
+        // 1. 苦苦 (直觀衝突: 2A壓迫3A 或 4A癱瘓2B)
+        alertKuKu() {
+          const tension1 = this.scores['2A'] / Math.max(1, this.scores['3A']);
+          const tension2 = this.scores['4A'] / Math.max(1, this.scores['2B']);
+          return tension1 >= this.threshold || tension2 >= this.threshold;
         },
-        // 觸發紅燈條件
-        kuKuAlert() {
-          return this.tension1 >= 2.5;
+        kuKuReason() {
+          if (this.scores['2A'] / Math.max(1, this.scores['3A']) >= this.threshold) {
+            return { overload: '秩序規範 2A', suppress: '同理傾聽 3A' };
+          }
+          return { overload: '邏輯解構 4A', suppress: '敏捷行動 2B' };
+        },
+
+        // 2. 壞苦 (倦怠委屈: 1A透支1B 或 3A過高)
+        alertHuaiKu() {
+          const tension3 = this.scores['1A'] / Math.max(1, this.scores['1B']);
+          return tension3 >= this.threshold || this.scores['3A'] >= 8.5; // 討好型過載
+        },
+
+        // 3. 行苦 (存在虛無: 4A/4B極高 但 2B/3B極低)
+        alertXingKu() {
+          const mindHigh = (this.scores['4A'] + this.scores['4B']) / 2 >= 7.5;
+          const actionLow = (this.scores['2B'] + this.scores['3B']) / 2 <= 3.5;
+          return mindHigh && actionLow;
+        }
+      },
+      methods: {
+        // 設定唔同分類嘅標籤顏色
+        getModuleColor(module) {
+          if (module.includes('1A') || module.includes('1B')) return 'bg-orange-100 text-orange-800 border-orange-200';
+          if (module.includes('2A') || module.includes('2B')) return 'bg-blue-100 text-blue-800 border-blue-200';
+          if (module.includes('3A') || module.includes('3B')) return 'bg-pink-100 text-pink-800 border-pink-200';
+          if (module.includes('4A') || module.includes('4B')) return 'bg-purple-100 text-purple-800 border-purple-200';
+          return 'bg-gray-100 text-gray-800';
+        },
+        // 重置所有分數為 5
+        resetScores() {
+          this.behaviors.forEach(b => b.score = 5);
         }
       }
     }).mount('#app')
