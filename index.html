@@ -24,7 +24,7 @@
       <p class="text-slate-500 text-base md:text-lg">這不是一份複雜的試卷，而是一面幫你『每日歇息』的心靈鏡子。</p>
     </div>
 
-    <!-- 🩺 1. 心靈把脈分流器 (用家 Concern 篩選區 - 保持在最頂部定錨) -->
+    <!-- 🩺 1. 心靈把脈分流器 -->
     <div class="bg-white rounded-xl shadow border border-slate-200 p-6 mb-8">
       <div class="flex items-center space-x-2 mb-4">
         <span class="text-2xl">🩺</span>
@@ -99,7 +99,7 @@
       </div>
     </div>
 
-    <!-- 📋 2. 【位置調換】精選行為自我評分區 (放至中間，讓用家直接在此作答) -->
+    <!-- 📋 2. 精選行為自我評分區 (打分在中間，方便手勢操作) -->
     <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden mb-8">
       <div class="bg-slate-100 px-6 py-4 flex justify-between items-center border-b border-slate-200">
         <div class="flex items-center space-x-2">
@@ -137,7 +137,7 @@
       </div>
     </div>
 
-    <!-- 🎯 3. 【位置調換】今日心靈防爆一味藥 (置於結果報告前) -->
+    <!-- 🎯 3. 今日心靈防爆一味藥 -->
     <div class="bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-xl shadow-lg p-6 mb-8 border border-indigo-950">
       <div class="flex items-center space-x-2 mb-3">
         <span class="text-2xl">🎯</span>
@@ -160,7 +160,7 @@
           <p class="text-lg md:text-xl font-bold text-white leading-normal">{{ todayRecommendation.desc }}</p>
         </div>
         <p class="text-sm md:text-base text-indigo-200 leading-relaxed">
-          💡 <strong>心靈藥效：</strong> {{ todayRecommendation.score >= 8 ? '這項行為你最近用力過猛了，今天請試著放開它、或者反向操作一下。' : '這項行為已被你冰封很久了，今天請試著跨出最微小的一步去啟動它。' }}
+          💡 <strong>心靈藥效：</strong> {{ todayRecommendation.score >= 8 ? '這項行為你最近用力過猛了，今天請試著放開它、或者反向操作一下。' : '這項行為已被你冰封很久了，今天請試著跨出最微小的一步去觸碰它。' }}
         </p>
       </div>
       
@@ -171,7 +171,7 @@
       </div>
     </div>
 
-    <!-- 📊 4. 【位置調換】專屬診斷報告書 (置於最底部，完美收尾) -->
+    <!-- 📊 4. 專屬診斷報告書 (字體大方 + 新增 3 條實質具體心靈處方) -->
     <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden mb-12">
       <div class="bg-slate-800 text-white px-5 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-2">
@@ -223,14 +223,52 @@
           </div>
         </div>
 
-        <!-- 藥方建議 -->
+        <!-- 藥方建議 + 實質行動（新增 3 個實質建議） -->
         <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-5 shadow-sm">
-          <h4 class="font-bold text-base md:text-lg text-indigo-900 mb-2 flex items-center">
+          <h4 class="font-bold text-base md:text-lg text-indigo-900 mb-3 flex items-center">
             <span class="mr-2">💊</span> 佛法防爆實相調和指南
           </h4>
-          <p class="leading-relaxed text-base md:text-lg text-indigo-950 font-medium whitespace-pre-line">
+          <p class="leading-relaxed text-base text-indigo-950 font-medium whitespace-pre-line mb-5">
             {{ getSpiritualCure() }}
           </p>
+
+          <!-- 🌟 新增：實質具體調和建議卡片 🌟 -->
+          <div class="border-t border-indigo-150 pt-4 mt-4 space-y-4">
+            <h5 class="font-bold text-sm md:text-base text-indigo-900 flex items-center">
+              <span class="mr-1.5">🛠️</span> 此時此刻你可執行的 3 個實質解藥：
+            </h5>
+            <div class="grid grid-cols-1 gap-3">
+              
+              <!-- 1. 心態轉變 (Mindset) -->
+              <div class="bg-white rounded-lg p-4 border border-indigo-100 shadow-sm flex items-start">
+                <div class="bg-indigo-100 text-indigo-800 rounded-full w-8 h-8 flex items-center justify-center shrink-0 font-bold text-sm mr-3">1</div>
+                <div>
+                  <h6 class="font-bold text-slate-800 text-sm md:text-base mb-0.5">🧠 心態轉變 (Mindset Shift)</h6>
+                  <p class="text-xs md:text-sm text-slate-600 leading-relaxed">{{ getActionCure().mindset }}</p>
+                </div>
+              </div>
+
+              <!-- 2. 主動實踐 (Action) -->
+              <div class="bg-white rounded-lg p-4 border border-indigo-100 shadow-sm flex items-start">
+                <div class="bg-orange-100 text-orange-800 rounded-full w-8 h-8 flex items-center justify-center shrink-0 font-bold text-sm mr-3">2</div>
+                <div>
+                  <h6 class="font-bold text-slate-800 text-sm md:text-base mb-0.5">🏃 主動實踐 (Micro-Action)</h6>
+                  <p class="text-xs md:text-sm text-slate-600 leading-relaxed">{{ getActionCure().action }}</p>
+                </div>
+              </div>
+
+              <!-- 3. 抽離覺察 (Awareness) -->
+              <div class="bg-white rounded-lg p-4 border border-indigo-100 shadow-sm flex items-start">
+                <div class="bg-emerald-100 text-emerald-800 rounded-full w-8 h-8 flex items-center justify-center shrink-0 font-bold text-sm mr-3">3</div>
+                <div>
+                  <h6 class="font-bold text-slate-800 text-sm md:text-base mb-0.5">🧘 抽離覺察 (Daily Awareness)</h6>
+                  <p class="text-xs md:text-sm text-slate-600 leading-relaxed">{{ getActionCure().awareness }}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -294,7 +332,7 @@
             { id: 66, module: '3B 影響引導', desc: '因人制宜調整溝通風格：根據對方嘅性格、背景同當下狀態，切換最有效嘅說話方式。', score: 5 },
             { id: 67, module: '3B 影響引導', desc: '坦率提出建設性意見：敢於直接指出問題 or 盲點，唔做「爛好人」。', score: 5 },
             { id: 70, module: '3B 影響引導', desc: '引導式提問啟發他人：唔直接俾答案，而係透過反問引導對方自己諗通。', score: 5 },
-            { id: 73, module: '3B 影響引導', desc: '向上管理與平等對話：面對上級或權威時既保持尊重，亦能不卑不亢表達立場。', score: 5 },
+            { id: 73, module: '3B 影響引導', desc: '向上管理與平等對話：面對上級 or 權威時既保持尊重，亦能不卑不亢表達立場。', score: 5 },
             { id: 74, module: '3B 影響引導', desc: '管理他人期望：事先講清楚規則、底線同預期結果，減少日後誤解。', score: 5 },
 
             // 第四大類｜思維視野 (4A/4B) - 精選 15 題
@@ -325,7 +363,7 @@
         relationAvg() { return (this.scores['3A'] + this.scores['3B']) / 2; },
         mindAvg() { return (this.scores['4A'] + this.scores['4B']) / 2; },
 
-        // 過濾出極端行為
+        // 過濾出目前顯示的極端行為
         overheatedBehaviors() {
           return this.filteredBehaviors.filter(b => b.score >= 8);
         },
@@ -469,12 +507,63 @@
             return "【因緣果報，拒絕過載】當前『壞苦』警報響起，您正在高強度透支能量。解藥為『建立神聖邊界』。請勇敢地對過度的外部迎合（3A）或過高的野心目標（1A）說「不」，在日曆上劃出絕對不可侵犯的自我滋養時間。";
           }
           if (this.alertXingKu) {
-            return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無 and 傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫暖的日常小事。";
+            return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無和傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫慢、細微的日常小事。";
           }
           if (this.alertTurbulence) {
             return "【狂心若歇，歇即菩提】當前在此範疇中『冰火兩重天』極高。外在看起來相安無事（平均分在 5-6 分），內心實則波濤洶湧。最需要的解藥是『守中與簡化』。今天請停止追求極端的卓越，也不必刻意擺爛，在呼吸間找到一個安全的中軸。";
           }
           return "【隨遇而安，守護此時】您目前在此範疇處於極佳的『能量平穩』狀態，各張力軸和諧。請保持當下的正念覺察（Mindfulness），不貪求、不嗔恨，平靜地過好當下。";
+        },
+
+        // 🌟 新增：動態生成 3 條實質解藥細則的方法 (針對 5 種不同心靈狀態)
+        getActionCure() {
+          // 1. 苦苦狀態 (完美主義/思維空轉)
+          if (this.alertKuKu) {
+            return {
+              mindset: "容許殘缺、因緣和合。接受事情的最終呈現是因緣組合的實相，而不是你個人『完美控制』的產物。允許事情只有 80 分，多出來的 20 分放手交給宇宙去流轉。",
+              action: "定下 15 分鐘『粗糙死線（Rough Deadline）』。合上參考資料和所有邏輯推演，在沒有任何修飾的情況下，逼自己不回頭、不修改地直接寫完第一版草稿，用行動強行中斷思維空轉。",
+              awareness: "今日練習『調用對立面行為』1 次。如果您是 2A (秩序規範) 過高的人，今天挑選一件無關痛癢的小事（例如整理書桌或排程），故意『不作整理/不按常規』1 次，看著內心的焦慮升起並慢慢平息。"
+            };
+          }
+          // 2. 壞苦狀態 (動力乾涸擺爛 vs 透支過載)
+          if (this.alertHuaiKu) {
+            if (this.scores['1A'] <= 3 && this.scores['1B'] <= 3) {
+              // 純擺爛/動力乾涸
+              return {
+                mindset: "成住壞空，無愧歇息。生命有春夏，必然也有秋冬。當前的毫無動力，是靈魂強制命令你進行『冬眠與充電』。請把這份無力感視為最神聖的、滋養復原的因緣契機。",
+                action: "執行 1 小時『物理隔離斷聯』。今天挑選一小時，把手機鎖進櫃子、電腦合上。不學習、不工作，去街角漫無目的地走一圈，不帶著任何功利心與目標地呼吸新鮮空氣。",
+                awareness: "今日做一件『純粹為了好玩、不求進步』的小事。例如去聽一首久違的音樂、畫一幅隨筆、或者看一片樹葉，重新找回不帶任務感的靈性滋養與最純粹的喜悅。"
+              };
+            }
+            // 迎合過載/透支
+            return {
+              mindset: "因緣果報，拒絕迎合。你的心力是有限的資源。每次為了滿足外界期望而過度妥協（3A迎合過熱），都是在為未來的崩潰埋下『壞苦變異』的債務。保護好自己，才是對眾生最大的慈悲。",
+              action: "今日勇敢實踐 1 次『溫柔的拒絕』。面對非本職工作或過度的外界請求，不找藉口，溫和而堅定地說：『我很理解你的需要，但我目前的精力與時間無法承擔這項任務。』",
+              awareness: "在你的行事曆上，用顯眼的顏色圈出一個『神聖私人邊界區』（至少30分鐘）。這段時間不回覆任何郵件與訊息，只用來做你自己喜歡的復原、滋養行為（1B好奇進化）。"
+            };
+          }
+          // 3. 行苦狀態 (飛得太高/孤立傲慢)
+          if (this.alertXingKu) {
+            return {
+              mindset: "同體大悲，眾生平等。你建構的高冷思維體系（4A/4B極高）雖然完美，但脫離了具體人的溫暖。要明白，身邊每個讓你覺得愚蠢或囉嗦的人，都在經歷著他們當下最真實的心理糾結與苦難。",
+              action: "今日實踐『無聲傾聽 3 分鐘』。找一位朋友或同事，在他們向你訴苦或分享時，不打斷、不評判、不給任何高維度的邏輯建議，只是溫柔地聽他們說完，並說一句：『我聽到了，你這段時間辛苦了。』",
+              awareness: "回歸具體的『身體觸覺與溫度』。今天動手做一件最細微的家務（如洗一個碗、掃一塊地），或者洗一個舒服的熱水澡，把所有的意念放在雙手的觸覺上，感受水流與具體物件的溫度，降維落地。"
+            };
+          }
+          // 4. 劇烈拉扯狀態 (冰火拉扯)
+          if (this.alertTurbulence) {
+            return {
+              mindset: "狂心若歇，守中即安。你目前的和諧只是表象，內心實則火山與冰山並存。不要試著把每一件事都做到極致（8分以上），也不要因為挫敗而徹底自我放棄（3分以下）。守住中軸，不偏不倚，就是解脫。",
+              action: "實行『待辦清單砍掉一半』計畫。把今天想做的、要做的事情列表，用鋼筆強行劃掉 50% 比較次要的項目。今天只集中精力，把剩餘最核心的那一件事情安靜地做完。",
+              awareness: "今日練習『10次呼吸覺察』。當你感到被極端的過熱情緒（狂熱、焦慮）或者極冷的冰凍情緒（沮喪、逃避）席捲時，立刻停下手頭的事，閉上眼深呼吸 10 次，靜靜看著情緒起伏而不隨之起舞。"
+            };
+          }
+          // 5. 能量平穩狀態 (心靈止息)
+          return {
+            mindset: "隨遇而安，守護此時。當下的和諧（平穩狀態）是極其難得的善因緣。不要貪求這份和諧能永久不變，也不要為未來尚未發生的波動而提前焦慮。安住於這個當下，就是最好的修行。",
+            action: "今日寫下『3 個感恩點』。在紙上親筆寫下今天讓你感到溫暖、幸運或喜悅的 3 個具體小細節，並在心中對這 3 個助緣真誠地道謝，將這份美好的心靈正能量儲存或分享出去。",
+            awareness: "實踐 5 分鐘的『正念步行（Walking Meditation）』。在今天的行走中（如上下班路上），刻意放慢腳步，將注意力完全集中在腳掌踏在地面、重心轉移、再抬起腳步的物理感覺上，全神貫注。"
+          };
         }
       }
     }).mount('#app');
