@@ -21,42 +21,42 @@
     <!-- 標題區 -->
     <div class="text-center mb-8">
       <h1 class="text-3xl md:text-4xl font-bold mb-3 text-slate-800">🧘 佛法三苦防爆系統</h1>
-      <p class="text-slate-500">100 行為即時評估，自動生成您的「靈性狀態索引診斷書」</p>
+      <p class="text-slate-500 text-base md:text-lg">100 行為即時評估，自動生成您的「靈性狀態索引診斷書」</p>
     </div>
 
-    <!-- 🌟 新增：個人專屬診斷書 (Diagnostic Dashboard) 🌟 -->
+    <!-- 🌟 個人專屬診斷書 (Diagnostic Dashboard) 🌟 -->
     <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden mb-10">
-      <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
+      <div class="bg-indigo-900 text-white px-6 py-5 flex justify-between items-center">
         <div class="flex items-center space-x-2">
-          <span class="text-xl">📋</span>
-          <h2 class="text-lg font-bold">個人專屬「三苦與能量分佈」診斷書</h2>
+          <span class="text-2xl">📋</span>
+          <h2 class="text-xl font-bold">個人專屬「三苦與能量分佈」診斷書</h2>
         </div>
-        <span class="bg-indigo-800 text-indigo-200 text-xs px-2.5 py-1 rounded-full font-mono">ID: SECURE-TRACK</span>
+        <span class="bg-indigo-800 text-indigo-200 text-xs px-2.5 py-1 rounded-full font-mono hidden sm:inline">ID: SECURE-TRACK</span>
       </div>
       
-      <div class="p-6 space-y-6">
+      <div class="p-6 space-y-8">
         
         <!-- 1. 核心三苦警報區 -->
         <div>
-          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">📍 核心三苦警報</h3>
-          <div class="space-y-3">
+          <h3 class="text-sm md:text-base font-bold text-slate-400 uppercase tracking-wider mb-4">📍 核心三苦警報</h3>
+          <div class="space-y-4">
             
             <!-- 苦苦警報 -->
-            <div v-if="alertKuKu" class="bg-red-50 border-l-4 border-red-500 p-4 rounded transition-all">
-              <div class="flex items-center mb-1">
-                <span class="text-xl mr-2">🔥</span>
-                <h4 class="font-bold text-red-800">苦苦爆發預警！(直觀衝突 / 嚴重高利貸)</h4>
+            <div v-if="alertKuKu" class="bg-red-50 border-l-4 border-red-500 p-5 rounded shadow-sm transition-all">
+              <div class="flex items-center mb-2">
+                <span class="text-2xl mr-2">🔥</span>
+                <h4 class="font-bold text-lg md:text-xl text-red-800">苦苦爆發預警！(直觀衝突 / 嚴重高利貸)</h4>
               </div>
-              <p class="text-sm text-red-700">你的【{{ kuKuReason.overload }}】過度壓迫了【{{ kuKuReason.suppress }}】。你正在用完美主義框死宇宙，或用過度思考癱瘓行動。</p>
+              <p class="text-sm md:text-base text-red-700">你的【{{ kuKuReason.overload }}】過度壓迫了【{{ kuKuReason.suppress }}】。你正在用完美主義框死宇宙，或用過度思考癱瘓行動。</p>
             </div>
 
             <!-- 壞苦警報 -->
-            <div v-if="alertHuaiKu" class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded transition-all">
-              <div class="flex items-center mb-1">
-                <span class="text-xl mr-2">🍂</span>
-                <h4 class="font-bold text-amber-800">壞苦爆發預警！(變異倦怠 / 乾枯邊緣)</h4>
+            <div v-if="alertHuaiKu" class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded shadow-sm transition-all">
+              <div class="flex items-center mb-2">
+                <span class="text-2xl mr-2">🍂</span>
+                <h4 class="font-bold text-lg md:text-xl text-amber-800">壞苦爆發預警！(變異倦怠 / 乾枯邊緣)</h4>
               </div>
-              <p class="text-sm text-amber-700">
+              <p class="text-sm md:text-base text-amber-700">
                 <span v-if="scores['1A'] <= 3 && scores['1B'] <= 3">
                   <strong>動力低迷：</strong> 你的【野心1A】與【好奇1B】同時處於極低水平，這是一種「擺爛式」倦怠，靈魂失去方向與燃料。
                 </span>
@@ -67,21 +67,21 @@
             </div>
 
             <!-- 行苦警報 -->
-            <div v-if="alertXingKu" class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded transition-all">
-              <div class="flex items-center mb-1">
-                <span class="text-xl mr-2">🌌</span>
-                <h4 class="font-bold text-blue-800">行苦爆發預警！(存在虛無 / 孤立傲慢)</h4>
+            <div v-if="alertXingKu" class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded shadow-sm transition-all">
+              <div class="flex items-center mb-2">
+                <span class="text-2xl mr-2">🌌</span>
+                <h4 class="font-bold text-lg md:text-xl text-blue-800">行苦爆發預警！(存在虛無 / 孤立傲慢)</h4>
               </div>
-              <p class="text-sm text-blue-700">你的【宏觀視野4】極高，但【落地溝通2/3】極低。你建構了傲慢的高牆，將眾生拒之門外。</p>
+              <p class="text-sm md:text-base text-blue-700">你的【宏觀視野4】極高，但【落地溝通2/3】極低。你建構了傲慢的高牆，將眾生拒之門外。</p>
             </div>
 
             <!-- 平衡狀態 (綠燈) -->
-            <div v-if="!alertKuKu && !alertHuaiKu && !alertXingKu" class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded">
-              <div class="flex items-center mb-1">
-                <span class="text-xl mr-2">🟢</span>
-                <h4 class="font-bold text-emerald-800">能量平衡 (止息狀態)</h4>
+            <div v-if="!alertKuKu && !alertHuaiKu && !alertXingKu" class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded">
+              <div class="flex items-center mb-2">
+                <span class="text-2xl mr-2">🟢</span>
+                <h4 class="font-bold text-lg md:text-xl text-emerald-800">能量平衡 (止息狀態)</h4>
               </div>
-              <p class="text-sm text-emerald-700">目前各項張力軸維持在健康範圍，無明顯「借高利貸」情況。請繼續保持這份覺察與平靜！</p>
+              <p class="text-sm md:text-base text-emerald-700">目前各項張力軸維持在健康範圍，無明顯「借高利貸」情況。請繼續保持這份覺察與平靜！</p>
             </div>
 
           </div>
@@ -90,51 +90,51 @@
         <!-- 2. 四大維度即時診斷 -->
         <hr class="border-slate-100" />
         <div>
-          <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">📊 4 大核心能量維度分析</h3>
+          <h3 class="text-sm md:text-base font-bold text-slate-400 uppercase tracking-wider mb-4">📊 4 大核心能量維度分析</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
             <!-- 內在驅動 -->
-            <div class="p-3 rounded-lg border border-slate-100 bg-slate-50">
-              <div class="flex justify-between items-center mb-1">
-                <span class="font-bold text-slate-700 text-sm">🔥 內在驅動 (1A/1B)</span>
-                <span class="text-xs font-bold px-2 py-0.5 rounded" :class="getDimensionStatusClass(driveAvg)">
+            <div class="p-4 rounded-lg border border-slate-100 bg-slate-50 shadow-sm">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-slate-800 text-base">🔥 內在驅動 (1A/1B)</span>
+                <span class="text-xs md:text-sm font-bold px-2 py-1 rounded" :class="getDimensionStatusClass(driveAvg)">
                   {{ getDimensionStatusText(driveAvg) }} ({{ driveAvg.toFixed(1) }}分)
                 </span>
               </div>
-              <p class="text-xs text-slate-500">{{ getDriveDiagnostic(driveAvg) }}</p>
+              <p class="text-sm text-slate-600 leading-relaxed">{{ getDriveDiagnostic(driveAvg) }}</p>
             </div>
 
             <!-- 執行落地 -->
-            <div class="p-3 rounded-lg border border-slate-100 bg-slate-50">
-              <div class="flex justify-between items-center mb-1">
-                <span class="font-bold text-slate-700 text-sm">⚙️ 執行落地 (2A/2B)</span>
-                <span class="text-xs font-bold px-2 py-0.5 rounded" :class="getDimensionStatusClass(executeAvg)">
+            <div class="p-4 rounded-lg border border-slate-100 bg-slate-50 shadow-sm">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-slate-800 text-base">⚙️ 執行落地 (2A/2B)</span>
+                <span class="text-xs md:text-sm font-bold px-2 py-1 rounded" :class="getDimensionStatusClass(executeAvg)">
                   {{ getDimensionStatusText(executeAvg) }} ({{ executeAvg.toFixed(1) }}分)
                 </span>
               </div>
-              <p class="text-xs text-slate-500">{{ getExecuteDiagnostic(executeAvg) }}</p>
+              <p class="text-sm text-slate-600 leading-relaxed">{{ getExecuteDiagnostic(executeAvg) }}</p>
             </div>
 
             <!-- 人際互動 -->
-            <div class="p-3 rounded-lg border border-slate-100 bg-slate-50">
-              <div class="flex justify-between items-center mb-1">
-                <span class="font-bold text-slate-700 text-sm">🤝 人際互動 (3A/3B)</span>
-                <span class="text-xs font-bold px-2 py-0.5 rounded" :class="getDimensionStatusClass(relationAvg)">
+            <div class="p-4 rounded-lg border border-slate-100 bg-slate-50 shadow-sm">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-slate-800 text-base">🤝 人際互動 (3A/3B)</span>
+                <span class="text-xs md:text-sm font-bold px-2 py-1 rounded" :class="getDimensionStatusClass(relationAvg)">
                   {{ getDimensionStatusText(relationAvg) }} ({{ relationAvg.toFixed(1) }}分)
                 </span>
               </div>
-              <p class="text-xs text-slate-500">{{ getRelationDiagnostic(relationAvg) }}</p>
+              <p class="text-sm text-slate-600 leading-relaxed">{{ getRelationDiagnostic(relationAvg) }}</p>
             </div>
 
             <!-- 思維視野 -->
-            <div class="p-3 rounded-lg border border-slate-100 bg-slate-50">
-              <div class="flex justify-between items-center mb-1">
-                <span class="font-bold text-slate-700 text-sm">🌌 思維視野 (4A/4B)</span>
-                <span class="text-xs font-bold px-2 py-0.5 rounded" :class="getDimensionStatusClass(mindAvg)">
+            <div class="p-4 rounded-lg border border-slate-100 bg-slate-50 shadow-sm">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-slate-800 text-base">🌌 思維視野 (4A/4B)</span>
+                <span class="text-xs md:text-sm font-bold px-2 py-1 rounded" :class="getDimensionStatusClass(mindAvg)">
                   {{ getDimensionStatusText(mindAvg) }} ({{ mindAvg.toFixed(1) }}分)
                 </span>
               </div>
-              <p class="text-xs text-slate-500">{{ getMindDiagnostic(mindAvg) }}</p>
+              <p class="text-sm text-slate-600 leading-relaxed">{{ getMindDiagnostic(mindAvg) }}</p>
             </div>
 
           </div>
@@ -143,39 +143,39 @@
         <!-- 3. 核心行為索引 (自動列出最需要注意的行為) -->
         <hr class="border-slate-100" />
         <div>
-          <div class="flex justify-between items-center mb-3">
-            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">🔎 核心行為病灶索引 (極端得分行為)</h3>
-            <span class="text-xs text-slate-400">系統自動過濾分數 $\ge 8$ 或 $\le 3$ 的行為</span>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
+            <h3 class="text-sm md:text-base font-bold text-slate-400 uppercase tracking-wider">🔎 核心行為病灶索引 (極端得分行為)</h3>
+            <span class="text-xs md:text-sm text-slate-400 font-medium">系統自動過濾分數 >= 8分 或 <= 3分 的行為</span>
           </div>
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
             <!-- 過熱行為列表 (>= 8分) -->
-            <div class="border border-red-100 rounded-lg p-3 bg-red-50/30">
-              <h4 class="text-xs font-bold text-red-700 mb-2 flex items-center">
-                <span class="mr-1">🔴</span> 過熱病灶索引 (高利貸傾向行為)
+            <div class="border border-red-100 rounded-lg p-4 bg-red-50/30">
+              <h4 class="text-sm font-bold text-red-700 mb-3 flex items-center">
+                <span class="mr-1.5">🔴</span> 過熱病灶索引 (高利貸傾向行為)
               </h4>
-              <ul v-if="overheatedBehaviors.length > 0" class="space-y-1.5 text-xs text-slate-600">
+              <ul v-if="overheatedBehaviors.length > 0" class="space-y-2 text-sm text-slate-600 leading-relaxed">
                 <li v-for="b in overheatedBehaviors" :key="b.id" class="flex items-start">
-                  <span class="font-mono text-red-500 mr-1.5 shrink-0">#{{ b.id }}</span>
-                  <span>{{ b.desc }} <strong class="text-red-600">({{ b.score }}分)</strong></span>
+                  <span class="font-mono text-red-500 mr-2 shrink-0 font-bold">#{{ b.id }}</span>
+                  <span>{{ b.desc }} <strong class="text-red-600 font-bold">({{ b.score }}分)</strong></span>
                 </li>
               </ul>
-              <p v-else class="text-xs text-slate-400 italic">目前沒有過熱行為，能量控制得宜。</p>
+              <p v-else class="text-sm text-slate-400 italic">目前沒有過熱行為，能量控制得宜。</p>
             </div>
 
             <!-- 冰凍行為列表 (<= 3分) -->
-            <div class="border border-blue-100 rounded-lg p-3 bg-blue-50/30">
-              <h4 class="text-xs font-bold text-blue-700 mb-2 flex items-center">
-                <span class="mr-1">❄️</span> 冰凍病灶索引 (被壓抑/閒置行為)
+            <div class="border border-blue-100 rounded-lg p-4 bg-blue-50/30">
+              <h4 class="text-sm font-bold text-blue-700 mb-3 flex items-center">
+                <span class="mr-1.5">❄️</span> 冰凍病灶索引 (被壓抑/閒置行為)
               </h4>
-              <ul v-if="frozenBehaviors.length > 0" class="space-y-1.5 text-xs text-slate-600">
+              <ul v-if="frozenBehaviors.length > 0" class="space-y-2 text-sm text-slate-600 leading-relaxed">
                 <li v-for="b in frozenBehaviors" :key="b.id" class="flex items-start">
-                  <span class="font-mono text-blue-500 mr-1.5 shrink-0">#{{ b.id }}</span>
-                  <span>{{ b.desc }} <strong class="text-blue-600">({{ b.score }}分)</strong></span>
+                  <span class="font-mono text-blue-500 mr-2 shrink-0 font-bold">#{{ b.id }}</span>
+                  <span>{{ b.desc }} <strong class="text-blue-600 font-bold">({{ b.score }}分)</strong></span>
                 </li>
               </ul>
-              <p v-else class="text-xs text-slate-400 italic">目前沒有冰凍行為，各方面皆有維持基本參與。</p>
+              <p v-else class="text-sm text-slate-400 italic">目前沒有冰凍行為，各方面皆有維持基本參與。</p>
             </div>
 
           </div>
@@ -183,11 +183,11 @@
 
         <!-- 4. 💊 佛法實相解藥 -->
         <hr class="border-slate-100" />
-        <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-4">
-          <h3 class="text-sm font-bold text-indigo-900 flex items-center mb-2">
-            <span class="mr-1.5">💊</span> 佛法防爆實相解藥建議
+        <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-5">
+          <h3 class="text-base font-bold text-indigo-900 flex items-center mb-3">
+            <span class="text-xl mr-2">💊</span> 佛法防爆實相解藥建議
           </h3>
-          <p class="text-xs text-indigo-950 leading-relaxed font-medium">
+          <p class="text-sm md:text-base text-indigo-950 leading-relaxed font-medium">
             {{ getSpiritualCure() }}
           </p>
         </div>
@@ -228,7 +228,6 @@
               {{ item.score }}
             </span>
           </div>
-
         </div>
       </div>
     </div>
@@ -250,7 +249,7 @@
             { id: 4, module: '1A 目標野心', desc: '逆境堅持到底：決定咗嘅事就會排除阻礙、吃苦耐勞做到最後。', score: 5 },
             { id: 5, module: '1A 目標野心', desc: '全力以赴投入：行動時精力充沛，進入心流甚至迷戀於手頭上嘅事。', score: 5 },
             { id: 6, module: '1A 目標野心', desc: '明確結果導向：做事注重最終成效，並努力令成果「睇得見」。', score: 5 },
-            { id: 7, module: '1A 目標野心', desc: '追求外界認同：重視自己嘅付出被睇見，並以獲得讚譽或感謝為動力。', score: 5 },
+            { id: 7, module: '1A 目標野心', desc: '追求外界認同：重視自己嘅付出被睇見，並以獲得讚譽 or 感謝為動力。', score: 5 },
             { id: 8, module: '1A 目標野心', desc: '良性競爭求勝：享受過程樂趣之餘，亦渴望贏過強大嘅對手。', score: 5 },
             { id: 9, module: '1A 目標野心', desc: '迅速從失敗復原：唔會俾過去嘅錯誤變成創傷，好快調整心態重新出發。', score: 5 },
             { id: 10, module: '1A 目標野心', desc: '主動承擔責任：對自己嘅選擇同最終結果負全責，唔推卸。', score: 5 },
@@ -333,7 +332,7 @@
             { id: 81, module: '4A 邏輯解構', desc: '客觀抽離保持冷靜：喺情緒高漲嘅局面中保持理性旁觀，唔被個人喜惡左右判斷。', score: 5 },
             { id: 82, module: '4A 邏輯解構', desc: '精準診斷問題成因：出錯時唔急住撲火，而係徹底調查背後嘅系統性原因。', score: 5 },
             { id: 83, module: '4A 邏輯解構', desc: '同時構思多個備選方案：面對難題時唔會只得一條路，會列出多種可能性並評估利弊。', score: 5 },
-            { id: 84, module: '4A 邏輯解構', desc: '資訊整合與高度濃縮：將零散、龐雜嘅意見或資料，提煉成清晰嘅核心結論。', score: 5 },
+            { id: 84, module: '4A 邏輯解構', desc: '資訊整合與高度濃縮：將零散、龐雜嘅意見 or 資料，提煉成清晰嘅核心結論。', score: 5 },
             { id: 85, module: '4A 邏輯解構', desc: '識別並評估潛在風險：喺行動前預判所有可能出錯嘅地方，提前做好風險對沖。', score: 5 },
             { id: 86, module: '4A 邏輯解構', desc: '逆向推演與因果分析：既能由原因推導結果，亦能從成功或失敗嘅結果倒推原因。', score: 5 },
             { id: 87, module: '4A 邏輯解構', desc: '區分「事實」與「觀點」：喺溝通同決策時，清楚分辨邊啲係客觀存在、邊啲係主觀臆測。', score: 5 },
@@ -434,45 +433,47 @@
           if (val <= 3.5) return 'bg-blue-100 text-blue-800';
           return 'bg-emerald-100 text-emerald-800';
         },
+
         getDriveDiagnostic(val) {
-          if (val >= 7.5) return "你正處於極高的自我期望中，注意是否被『非贏不可』的執念綑綁。";
-          if (val <= 3.5) return "目前內在驅動力冰凍。你可能正在經歷深度倦怠、迷茫或無意義感。";
-          return "你在追求進步與保持心靈滋養之間取得了良好平衡。";
+          if (val >= 7.5) return "你正處於極高的自我期望中，請多注意自己是否被「非贏不可」的執念綑綁。";
+          if (val <= 3.5) return "目前內在驅動力極低。你可能正在經歷深度的身心倦怠、迷茫或無意義感。";
+          return "你在追求自我提升與保持心靈滋養之間取得了良好且健康的動態平衡。";
         },
         getExecuteDiagnostic(val) {
-          if (val >= 7.5) return "過度追求效率或秩序。請小心因過度控制（Control-freak）導致身邊人窒息。";
-          if (val <= 3.5) return "執行落地卡關。有想法但難以落實，可能陷入拖延或不敢開始的局面。";
-          return "計畫有序且能彈性變通，工作效率與心態都很健康。";
+          if (val >= 7.5) return "過度追求效率或秩序。請小心因過度控制（Control-freak）導致身邊合作者窒息。";
+          if (val <= 3.5) return "執行落地遭遇卡關。腦海中有諸多想法但難以落實，可能陷入拖延或不敢開始。";
+          return "計畫有序且能彈性變通，當前工作效率與心靈放鬆心態都很健康。";
         },
         getRelationDiagnostic(val) {
-          if (val >= 7.5) return "過度在意人際和諧（3A過高）或過度想操控他人期望（3B過高），心力交瘁。";
-          if (val <= 3.5) return "傾向於自我孤立。封閉了自己的溝通管道，減少了與外部世界的溫度連結。";
-          return "傾聽與表達適度，人際溝通自然流暢，具有良好的情感邊界。";
+          if (val >= 7.5) return "過度在意人際和諧（3A 迎合）或過度想操控他人期望（3B），導致自身心力交瘁。";
+          if (val <= 3.5) return "傾向於自我孤立。您可能封閉了溝通管道，減少了與外部世界的溫度和連結。";
+          return "傾聽與自我表達適度，人際溝通自然流暢，具有非常良好的情感邊界。";
         },
         getMindDiagnostic(val) {
           if (val >= 7.5) return "思維過於宏大或邏輯過度運轉。想得太多、拆得太細，容易引發存在主義危機。";
-          if (val <= 3.5) return "思考維度有待拓寬。目前可能只關注眼前瑣事，缺乏長遠的視野。";
-          return "視野開闊且能保持理性，在細節和宏觀之間游刃有餘。";
+          if (val <= 3.5) return "思考維度有待拓寬。目前可能過度關注眼前瑣事，缺乏對長遠局勢的視野。";
+          return "視野開闊且能保持理性，在微觀細節和宏觀戰略定位之間游刃有餘。";
         },
 
         // --- 綜合靈性解藥建議 ---
         getSpiritualCure() {
           if (this.alertKuKu) {
-            return "【諸行無常，放手實修】當前『苦苦』極高。最核心的解藥是『破除我執』。請停止用完美主義折磨自己或他人。調用您冰凍區的行為——如果是2A過高，請放手交給他人，合上電腦靜坐3分鐘；如果是4A過高，立刻挑選一件最微小的實事著手，用行動打破思考的空轉。";
+            return "【諸行無常，放手實修】當前『苦苦』極高。最核心的解藥是『破除我執』。請停止用完美主義折磨自己或他人。嘗試調用您冰凍區的行為——如果是 2A 規範過高，請試著放手交給他人，合上電腦靜坐 3 分鐘；如果是 4A 邏輯過高，請立刻挑選一件最微小的實事著手去做，用身體和行動打破思考的空轉。";
           }
           if (this.alertHuaiKu) {
             if (this.scores['1A'] <= 3 && this.scores['1B'] <= 3) {
-              return "【成住壞空，無愧休息】當前動力乾涸。這是身心靈強制進入『空』的求救信號。請無愧疚感地進入『大休息』，去大自然走走，或用非功利的心態去做一件完全與工作進步無關的日常小事。";
+              return "【成住壞空，無愧休息】當前動力乾涸。這是身心靈強制進入『空』的求救信號。最上乘的解藥是無愧疚感地進入『大休息』，去大自然散散步，或用完全不求回報、不求進步的心態去做好一件日常小事，重新滋養靈魂。";
             }
-            return "【因緣果報，拒絕過載】當前『壞苦』警報響起，您正在透支能量。解藥為『建立界線』。請勇敢地對過度的外部迎合（3A）或野心目標（1A）說不，在日曆上劃出絕對不可侵犯的個人放鬆時間。";
+            return "【因緣果報，拒絕過載】當前『壞苦』警報響起，您正在高強度透支能量。解藥為『建立神聖邊界』。請勇敢地對過度的外部迎合（3A）或過高的野心目標（1A）說「不」，並在日曆上劃出絕對不可侵犯的自我滋養時間。";
           }
           if (this.alertXingKu) {
-            return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與眾生斷了連結，容易感到虛無和傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為身邊人做一件日常小事，感受具體人的溫度。";
+            return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無和傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫暖的日常小事，感受溫度的回流。";
           }
-          return "【隨遇而安，守護此時】您目前處於極佳的『能量平穩』狀態，各張力軸非常和諧。這是難得的『心靈止息』。請保持當下的覺察（Mindfulness），不貪求、不嗔恨，平靜地過好每一個當下。";
+          return "【隨遇而安，守護此時】您目前處於極佳的『能量平穩』狀態，各張力軸非常和諧。這是非常難得的『心靈止息』。請保持當下的正念覺察（Mindfulness），不貪求、不嗔恨，平靜地過好每一個當下。";
         }
       }
     }).mount('#app')
   </script>
+
 </body>
 </html>
