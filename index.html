@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>人類行為三苦防爆系統</title>
-  <!-- 引入 Vue 3 同 Tailwind CSS -->
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="https://unpkg.com/@tailwindcss/browser@3"></script>
+
+  <!-- 使用最穩定的生產環境 Vue 3 CND (防加載失敗) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.js"></script>
+
+  <!-- 使用最穩定的 Tailwind Play CDN (防 v4 瀏覽器編譯引擎衝突) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     /* 自訂滑桿顏色 */
     input[type=range]::-webkit-slider-thumb {
