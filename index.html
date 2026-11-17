@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🧘 佛法三苦防爆系統 - 精準覺察版</title>
+  <title>🧘 佛法三苦防爆系統 - 專家陪伴版</title>
   <!-- 引入穩定高可用的 Vue 3 同 Tailwind CSS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,12 +12,32 @@
     input[type=range]::-webkit-slider-thumb {
       background: #4F46E5;
     }
+    /* 溫柔的淡入浮現動畫 */
+    @keyframes fade-in-up {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fade-in-up 0.6s ease-out forwards;
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-gray-800 font-sans p-4 md:p-8 text-base">
 
   <div id="app" class="max-w-3xl mx-auto">
     
+    <!-- 🌅 每日自動重置歡迎橫幅 (New Day Banner) -->
+    <div v-if="isNewDay" class="bg-emerald-100/80 border border-emerald-300 text-emerald-800 px-5 py-4 rounded-xl shadow-sm mb-6 flex justify-between items-start animate-fade-in-up">
+      <div class="flex items-start space-x-3">
+        <span class="text-2xl mt-0.5">🌅</span>
+        <div>
+          <h3 class="font-bold text-base md:text-lg mb-1">新的一天開始了</h3>
+          <p class="text-sm md:text-base">諸法無常，昨天的張力與執念已成過去。系統已為您溫柔地將狀態歸零，請重新感受當下的自己。</p>
+        </div>
+      </div>
+      <button @click="isNewDay = false" class="text-emerald-600 hover:text-emerald-900 font-bold px-2 py-1 text-lg">✕</button>
+    </div>
+
     <!-- 標題區 -->
     <div class="text-center mb-8">
       <h1 class="text-3xl md:text-4xl font-bold mb-2 text-slate-800">🧘 佛法三苦防爆系統</h1>
@@ -39,7 +59,7 @@
         <button 
           @click="selectFocus('drive')" 
           :class="focusMode === 'drive' ? 'border-indigo-600 bg-indigo-50 text-indigo-900 font-bold' : 'border-slate-200 hover:bg-slate-50 text-slate-700'"
-          class="flex items-center p-3 rounded-lg border text-left text-sm transition focus:outline-none"
+          class="flex items-center p-3 rounded-lg border text-left transition focus:outline-none"
         >
           <span class="text-xl mr-2.5">🔥</span>
           <div>
@@ -47,11 +67,10 @@
             <div class="text-xs text-slate-400 mt-0.5">野心過載、做乜都無動力、Burnout邊緣</div>
           </div>
         </button>
-
         <button 
           @click="selectFocus('execute')" 
           :class="focusMode === 'execute' ? 'border-indigo-600 bg-indigo-50 text-indigo-900 font-bold' : 'border-slate-200 hover:bg-slate-50 text-slate-700'"
-          class="flex items-center p-3 rounded-lg border text-left text-sm transition focus:outline-none"
+          class="flex items-center p-3 rounded-lg border text-left transition focus:outline-none"
         >
           <span class="text-xl mr-2.5">⚙️</span>
           <div>
@@ -59,11 +78,10 @@
             <div class="text-xs text-slate-400 mt-0.5">想做但唔動手、被規矩綁死、進度混亂</div>
           </div>
         </button>
-
         <button 
           @click="selectFocus('relation')" 
           :class="focusMode === 'relation' ? 'border-indigo-600 bg-indigo-50 text-indigo-900 font-bold' : 'border-slate-200 hover:bg-slate-50 text-slate-700'"
-          class="flex items-center p-3 rounded-lg border text-left text-sm transition focus:outline-none"
+          class="flex items-center p-3 rounded-lg border text-left transition focus:outline-none"
         >
           <span class="text-xl mr-2.5">🤝</span>
           <div>
@@ -71,16 +89,15 @@
             <div class="text-xs text-slate-400 mt-0.5">討好型人格、難以拒絕人、縮埋孤立自己</div>
           </div>
         </button>
-
         <button 
           @click="selectFocus('mind')" 
           :class="focusMode === 'mind' ? 'border-indigo-600 bg-indigo-50 text-indigo-900 font-bold' : 'border-slate-200 hover:bg-slate-50 text-slate-700'"
-          class="flex items-center p-3 rounded-lg border text-left text-sm transition focus:outline-none"
+          class="flex items-center p-3 rounded-lg border text-left transition focus:outline-none"
         >
           <span class="text-xl mr-2.5">🌌</span>
           <div>
             <div class="font-bold text-sm md:text-base">過度思考 / 前路虛無</div>
-            <div class="text-xs text-slate-400 mt-0.5">腦架空轉、懷疑做野嘅意義、感到迷茫</div>
+            <div class="text-xs text-slate-400 mt-0.5">腦袋空轉、懷疑做野嘅意義、感到迷茫</div>
           </div>
         </button>
       </div>
@@ -137,19 +154,19 @@
       </div>
     </div>
 
-    <!-- 🎯 3. 今日心靈防爆一味藥 -->
-    <div class="bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-xl shadow-lg p-6 mb-8 border border-indigo-950">
+    <!-- 🎯 3. 今日心靈防爆一味藥 (加入打卡微光回饋) -->
+    <div class="bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-xl shadow-lg p-6 mb-8 border border-indigo-950 relative overflow-hidden">
       <div class="flex items-center space-x-2 mb-3">
         <span class="text-2xl">🎯</span>
         <h2 class="text-lg md:text-xl font-bold tracking-wide">今日心靈防爆「一味藥」</h2>
       </div>
       
       <!-- 有極端行為時 -->
-      <div v-if="todayRecommendation" class="space-y-4">
+      <div v-if="todayRecommendation" class="space-y-4 relative z-10">
         <p class="text-indigo-200 text-sm md:text-base leading-relaxed text-slate-300">
           系統在你當下最煩惱的範疇中，挑選出了<strong>今天最需要調和的 1 個黃金微習慣</strong>。今天不需要改變整個人生，只要嘗試做好這一件事：
         </p>
-        <div class="bg-white/10 rounded-lg p-5 border border-white/10">
+        <div class="bg-white/10 rounded-lg p-5 border border-white/10 shadow-inner">
           <div class="flex items-center space-x-2 mb-2">
             <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-800 text-indigo-100">
               行為 #{{ todayRecommendation.id }} · {{ todayRecommendation.module }}
@@ -160,14 +177,32 @@
           <p class="text-lg md:text-xl font-bold text-white leading-normal">{{ todayRecommendation.desc }}</p>
         </div>
         <p class="text-sm md:text-base text-indigo-200 leading-relaxed">
-          💡 <strong>心靈藥效：</strong> {{ todayRecommendation.score >= 8 ? '這項行為你最近用力過猛了，今天請試著放開它、或者反向操作一下。' : '這項行為已被你冰封很久了，今天請試著跨出最微小的一步去啟動它。' }}
+          💡 <strong>心靈藥效：</strong> {{ todayRecommendation.score >= 8 ? '這項行為你最近用力過猛了，今天請試著放開它、或者反向操作一下。' : '這項行為已被你冰封很久了，今天請試著跨出最微小的一步去觸碰它。' }}
         </p>
+
+        <!-- 🌟 微習慣打卡按鈕 (正增強機制) -->
+        <div class="mt-6 border-t border-indigo-500/40 pt-5">
+          <div v-if="practiceDone" class="bg-emerald-900/40 border border-emerald-400/50 rounded-lg p-4 text-center animate-fade-in-up">
+            <p class="text-emerald-300 font-bold text-lg mb-1">🌸 善哉！完成打卡</p>
+            <p class="text-sm text-indigo-100">你已在因果的流轉中，種下了一顆清淨的種子。請帶著這份覺察，平靜地度過今天。</p>
+          </div>
+          <button v-else @click="completePractice" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-lg shadow-lg transition-colors flex items-center justify-center space-x-2 focus:outline-none">
+            <span class="text-lg">✅</span>
+            <span>我已完成這個微練習</span>
+          </button>
+        </div>
       </div>
       
       <!-- 沒有極端行為時 -->
-      <div v-else class="py-2">
-        <p class="text-base md:text-lg text-emerald-300 font-medium">🟢 當前範疇無明顯極端失衡，能量和諧！</p>
-        <p class="text-sm md:text-base text-slate-300 mt-1">你的身心數值很平均。請拉開上方打分區調整分數，看看系統會為你推薦哪一味處方藥。</p>
+      <div v-else class="py-2 relative z-10">
+        <template v-if="alertSubtleTension">
+          <p class="text-base md:text-lg text-yellow-300 font-medium">🟡 隱性張力：未達極端，但已有拉扯。</p>
+          <p class="text-sm md:text-base text-slate-300 mt-1">你的數值開始出現 {{ currentGap.toFixed(1) }} 分的落差，請往下看具體診斷報告，及早治未病。</p>
+        </template>
+        <template v-else>
+          <p class="text-base md:text-lg text-emerald-300 font-medium">🟢 當前範疇無明顯極端失衡，能量和諧！</p>
+          <p class="text-sm md:text-base text-slate-300 mt-1">你的身心數值很平均。請在上方打分區調整分數，看看系統會為你推薦哪一味處方藥。</p>
+        </template>
       </div>
     </div>
 
@@ -182,7 +217,7 @@
       </div>
       
       <div class="p-5 space-y-6">
-        <!-- 三苦與拉扯警報 -->
+        <!-- 警報區 -->
         <div class="space-y-4">
           <div v-if="alertKuKu" class="bg-red-50 border-l-4 border-red-500 p-5 rounded text-sm md:text-base text-red-800 leading-relaxed">
             <strong class="block text-base md:text-lg mb-1.5">🔥 苦苦爆發預警！(直觀衝突)</strong>
@@ -197,9 +232,24 @@
             <strong class="block text-base md:text-lg mb-1.5">🌌 行苦爆發預警！(存在虛無)</strong>
             你的【宏觀視野4】極高但【落地溝通2/3】極低。建構了傲慢的高牆，將具體的人拒之門外。
           </div>
+          
           <div v-if="alertTurbulence" class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded text-sm md:text-base text-orange-800 leading-relaxed">
             <strong class="block text-base md:text-lg mb-1.5">⚡ 內在分裂預警！(冰火拉扯)</strong>
             系統檢測到你當下關注的範疇中，同時有 <strong>{{ overheatedBehaviors.length }} 條過熱行為</strong> 與 <strong>{{ frozenBehaviors.length }} 條冰凍行為</strong>，正處於劇烈的內消耗與拉扯狀態。
+          </div>
+          <div v-if="alertFreeze" class="bg-sky-50 border-l-4 border-sky-500 p-5 rounded text-sm md:text-base text-sky-800 leading-relaxed">
+            <strong class="block text-base md:text-lg mb-1.5">❄️ 能量冬眠預警！(全面冰封)</strong>
+            系統檢測到你當前範疇所有行為均處於 <strong>極低能耗的冰凍狀態 (均小於等於3分)</strong>。你正面臨嚴重的靈性冬眠、逃避與能量封閉，身心急需溫柔的小火苗來徐徐喚醒。
+          </div>
+          <div v-if="alertOverheat" class="bg-red-50 border-l-4 border-red-500 p-5 rounded text-sm md:text-base text-red-800 leading-relaxed">
+            <strong class="block text-base md:text-lg mb-1.5">🔥 火燒身預警！(全面過熱)</strong>
+            系統檢測到你當前範疇所有行為均處於 <strong>極高能耗的過熱狀態 (均大於等於8分)</strong>。你目前的狀態像是一台嚴重超載、齒輪發紅的火車頭，這是一種慢性自焚狀態，急需強制降溫與熄火。
+          </div>
+
+          <!-- 🌟 新增：隱性張力 (亞健康) 預警 -->
+          <div v-if="alertSubtleTension" class="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded text-sm md:text-base text-yellow-800 leading-relaxed animate-fade-in-up">
+            <strong class="block text-base md:text-lg mb-1.5">🟡 隱性張力預警！(亞健康狀態)</strong>
+            你尚未處於極端崩潰狀態，但當前範疇的兩種能量之間已出現 <strong>{{ currentGap.toFixed(1) }} 分的落差</strong>。內心已開始有微小的消耗與拉扯，請及早留意，治未病。
           </div>
         </div>
 
@@ -252,7 +302,7 @@
               <div class="bg-white rounded-lg p-4 border border-indigo-100 shadow-sm flex items-start">
                 <div class="bg-orange-100 text-orange-800 rounded-full w-8 h-8 flex items-center justify-center shrink-0 font-bold text-sm mr-3">2</div>
                 <div>
-                  <h6 class="font-bold text-slate-800 text-sm md:text-base mb-0.5">跑 主動實踐 (Micro-Action)</h6>
+                  <h6 class="font-bold text-slate-800 text-sm md:text-base mb-0.5">🏃 主動實踐 (Micro-Action)</h6>
                   <p class="text-xs md:text-sm text-slate-600 leading-relaxed">{{ getActionCure().action }}</p>
                 </div>
               </div>
@@ -268,11 +318,10 @@
 
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
-
   </div>
 
   <!-- Vue.js 邏輯區 -->
@@ -283,8 +332,10 @@
       data() {
         return {
           focusMode: 'drive', // 預設聚焦於「能量乾枯」
+          isNewDay: false,    // 每日刷新橫幅
+          practiceDone: false,// 微練習打卡狀態
           behaviors: [
-            // 第一大類｜內在驅動 (1A/1B) - 精選 15 題
+            // 第一大類｜內在驅動 (1A/1B)
             { id: 1, module: '1A 目標野心', desc: '設定高標準目標：以第一名或超越平均水準為目標去推進事情。', score: 5 },
             { id: 2, module: '1A 目標野心', desc: '果斷啟動行動：唔猶豫、唔怕「第一次」，諗到就即刻開始做。', score: 5 },
             { id: 4, module: '1A 目標野心', desc: '逆境堅持到底：決定咗嘅事就會排除阻礙、吃苦耐勞做到最後。', score: 5 },
@@ -301,7 +352,7 @@
             { id: 21, module: '1B 好奇進化', desc: '精準自我覺察：每日反省自己嘅言行，客觀評估自己嘅強弱項。', score: 5 },
             { id: 24, module: '1B 好奇進化', desc: '建立專屬復原機制：了解自己嘅情緒週期，識得喺疲憊時照顧好自己。', score: 5 },
             
-            // 第二大類｜執行落地 (2A/2B) - 精選 15 題
+            // 第二大類｜執行落地 (2A/2B)
             { id: 26, module: '2A 秩序規範', desc: '拆解任務與排程：將大目標細分為具體步驟，訂定優先順序與死線（Deadline）。', score: 5 },
             { id: 27, module: '2A 秩序規範', desc: '善用清單與視覺化：透過待辦事項（To-do list）或檢查表（Checklist）追蹤進度。', score: 5 },
             { id: 28, module: '2A 秩序規範', desc: '嚴格遵守規則程序：按照既定制度、標準或操作手冊（SOP）準確執行。', score: 5 },
@@ -318,7 +369,7 @@
             { id: 45, module: '2B 敏捷破局', desc: '在資訊不全下決策：接受世事無絕對確定性，能夠喺關鍵時刻快速拍板。', score: 5 },
             { id: 48, module: '2B 敏捷破局', desc: '不拘泥教條打破常規：當舊規則阻礙進度時，敢於打破秩序用獨創方法解決。', score: 5 },
 
-            // 第三大類｜人際互動 (3A/3B) - 精選 15 題
+            // 第三大類｜人際互動 (3A/3B)
             { id: 51, module: '3A 同理傾聽', desc: '深度同理他人情緒：設身處地感受對方嘅焦慮、悲傷或喜悅，感同身受。', score: 5 },
             { id: 52, module: '3A 同理傾聽', desc: '耐心傾聽不打斷：先聽對方講晒，唔急住批判、否定或者插嘴。', score: 5 },
             { id: 53, module: '3A 同理傾聽', desc: '察覺細微情緒變化：從對方嘅表情、語氣同肢體動作，讀懂言外之意。', score: 5 },
@@ -335,7 +386,7 @@
             { id: 73, module: '3B 影響引導', desc: '向上管理與平等對話：面對上級 or 權威時既保持尊重，亦能不卑不亢表達立場。', score: 5 },
             { id: 74, module: '3B 影響引導', desc: '管理他人期望：事先講清楚規則、底線同預期結果，減少日後誤解。', score: 5 },
 
-            // 第四大類｜思維視野 (4A/4B) - 精選 15 題
+            // 第四大類｜思維視野 (4A/4B)
             { id: 76, module: '4A 邏輯解構', desc: '直擊事物底層本質：唔被表面現象迷惑，習慣追問「點解」，直達問題根源。', score: 5 },
             { id: 77, module: '4A 邏輯解構', desc: '基於數據與證據推理：講求客觀事实，從海量資訊中篩選高可信度情報做判斷。', score: 5 },
             { id: 78, module: '4A 邏輯解構', desc: '多維度批判性思考：習慣從唔同角度審視同一個問題，重新檢視既有結論。', score: 5 },
@@ -355,6 +406,7 @@
         };
       },
       created() {
+        this.checkNewDay(); // 🚀 啟動每日檢測
         this.loadSavedScores();
       },
       computed: {
@@ -363,12 +415,8 @@
         relationAvg() { return (this.scores['3A'] + this.scores['3B']) / 2; },
         mindAvg() { return (this.scores['4A'] + this.scores['4B']) / 2; },
 
-        overheatedBehaviors() {
-          return this.filteredBehaviors.filter(b => b.score >= 8);
-        },
-        frozenBehaviors() {
-          return this.filteredBehaviors.filter(b => b.score <= 3);
-        },
+        overheatedBehaviors() { return this.filteredBehaviors.filter(b => b.score >= 8); },
+        frozenBehaviors() { return this.filteredBehaviors.filter(b => b.score <= 3); },
 
         todayRecommendation() {
           const extremes = [...this.overheatedBehaviors, ...this.frozenBehaviors];
@@ -378,10 +426,31 @@
           return extremes[index];
         },
 
-        // 在被過濾出來的 15 題中，若有 4 條以上極端，就代表高度分裂與張力拉扯
+        // 警報條件
         alertTurbulence() {
           const limit = this.focusMode === 'all' ? 8 : 4;
-          return (this.overheatedBehaviors.length + this.frozenBehaviors.length) >= limit;
+          const hasFire = this.overheatedBehaviors.length > 0;
+          const hasIce = this.frozenBehaviors.length > 0;
+          return hasFire && hasIce && (this.overheatedBehaviors.length + this.frozenBehaviors.length) >= limit;
+        },
+        alertFreeze() {
+          return this.getCurrentAvg() <= 3.5 && !this.alertTurbulence;
+        },
+        alertOverheat() {
+          return this.getCurrentAvg() >= 7.5 && !this.alertTurbulence;
+        },
+
+        // 🌟 新增：隱性張力 (亞健康) 檢測
+        currentGap() {
+          if (this.focusMode === 'drive') return Math.abs(this.scores['1A'] - this.scores['1B']);
+          if (this.focusMode === 'execute') return Math.abs(this.scores['2A'] - this.scores['2B']);
+          if (this.focusMode === 'relation') return Math.abs(this.scores['3A'] - this.scores['3B']);
+          if (this.focusMode === 'mind') return Math.abs(this.scores['4A'] - this.scores['4B']);
+          return 0;
+        },
+        alertSubtleTension() {
+          const noMajorAlert = !this.alertKuKu && !this.alertHuaiKu && !this.alertXingKu && !this.alertTurbulence && !this.alertFreeze && !this.alertOverheat;
+          return noMajorAlert && this.currentGap >= 3;
         },
 
         // 中醫診斷分流邏輯 (15題)
@@ -402,10 +471,9 @@
             const mindIds = [76, 77, 78, 79, 81, 82, 85, 87, 89, 90, 91, 93, 94, 98, 100];
             return this.behaviors.filter(b => mindIds.includes(b.id));
           }
-          return this.behaviors; // 'all' 全面檢測
+          return this.behaviors; 
         },
 
-        // 8 大模組平均分
         scores() {
           return {
             '1A': this.getAverageByModule('1A 目標野心'),
@@ -420,7 +488,6 @@
         },
         threshold() { return 2.5; },
         
-        // --- 核心三苦判斷邏輯 ---
         alertKuKu() {
           const tension1 = this.scores['2A'] / Math.max(1, this.scores['3A']);
           const tension2 = this.scores['4A'] / Math.max(1, this.scores['2B']);
@@ -444,6 +511,30 @@
         }
       },
       methods: {
+        // 🚀 每日自動重置檢測
+        checkNewDay() {
+          const today = new Date().toLocaleDateString('zh-HK');
+          const savedDate = localStorage.getItem('no_suffering_last_date');
+          if (savedDate && savedDate !== today) {
+            this.isNewDay = true;
+            this.behaviors.forEach(b => b.score = 5);
+            this.saveScores();
+            localStorage.removeItem('no_suffering_practice_date'); // 隔天重置打卡
+          }
+          localStorage.setItem('no_suffering_last_date', today);
+        },
+        // 🚀 微習慣打卡
+        completePractice() {
+          this.practiceDone = true;
+          localStorage.setItem('no_suffering_practice_date', new Date().toLocaleDateString('zh-HK'));
+        },
+        getCurrentAvg() {
+          if (this.focusMode === 'drive') return this.driveAvg;
+          if (this.focusMode === 'execute') return this.executeAvg;
+          if (this.focusMode === 'relation') return this.relationAvg;
+          if (this.focusMode === 'mind') return this.mindAvg;
+          return 5;
+        },
         getAverageByModule(moduleName) {
           const items = this.behaviors.filter(b => b.module === moduleName);
           if (items.length === 0) return 5; 
@@ -468,6 +559,11 @@
           const savedFocus = localStorage.getItem('no_suffering_focus_mode');
           if (savedFocus) this.focusMode = savedFocus;
 
+          const practiceDate = localStorage.getItem('no_suffering_practice_date');
+          if (practiceDate === new Date().toLocaleDateString('zh-HK')) {
+            this.practiceDone = true;
+          }
+
           const saved = localStorage.getItem('no_suffering_scores');
           if (saved) {
             try {
@@ -486,52 +582,36 @@
           this.saveScores();
         },
 
-        // --- 診斷分析文本 ---
         getDimensionStatusText(val) {
           if (val >= 7.5) return '🔴 過熱';
           if (val <= 3.5) return '❄️ 冰凍';
           return '🟢 平穩';
         },
 
-        // --- 綜合靈性解藥建議 (動態範疇診斷) ---
         getSpiritualCure() {
-          if (this.alertKuKu) {
-            return "【諸行無常，放手實修】當前『苦苦』極高。最核心的解藥是『破除我執』。請停止用完美主義折磨自己或他人。如果是 2A 秩序過高，請試著放手交給他人，合上電腦靜坐 3 分鐘；如果是 4A 邏輯過高，請立刻挑選一件最微小的實事著手去做，用身體打破思考的空轉。";
-          }
+          if (this.alertKuKu) return "【諸行無常，放手實修】當前『苦苦』極高。最核心的解藥是『破除我執』。請停止用完美主義折磨自己或他人。如果是 2A 秩序過高，請試著放手交給他人，合上電腦靜坐 3 分鐘；如果是 4A 邏輯過高，請立刻挑選一件最微小的實事著手去做，用身體打破思考的空轉。";
           if (this.alertHuaiKu) {
-            if (this.scores['1A'] <= 3 && this.scores['1B'] <= 3) {
-              return "【成住壞空，無愧休息】當前動力乾涸。這是身心靈強制進入『空』的求救信號。最上乘的解藥是無愧疚感地進入『大休息』，去大自然散散步，或用完全不求回報、不求進步的心態去做好一件日常小事，重新滋養靈魂。";
-            }
+            if (this.scores['1A'] <= 3 && this.scores['1B'] <= 3) return "【成住壞空，無愧休息】當前動力乾涸。這是身心靈強制進入『空』的求救信號。最上乘的解藥是無愧疚感地進入『大休息』，去大自然散散步，或用完全不求回報、不求進步的心態去做好一件日常小事，重新滋養靈魂。";
             return "【因緣果報，拒絕過載】當前『壞苦』警報響起，您正在高強度透支能量。解藥為『建立神聖邊界』。請勇敢地對過度的外部迎合（3A）或過高的野心目標（1A）說「不」，在日曆上劃出絕對不可侵犯的自我滋養時間。";
           }
-          if (this.alertXingKu) {
-            return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無和傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫暖的日常小事。";
-          }
+          if (this.alertXingKu) return "【同體大悲，降維同心】當前『行苦』極高。您飛得太高、看得很透，但與具體眾生斷了溫度連結，容易感到虛無和傲慢。解藥是『落地慈悲』。請走進人群，不要帶評判地去傾聽一個身邊人說話，或者動手為家人、同事做一件溫暖的日常小事。";
           
-          // 🌟 核心優化：當檢測到「拉扯警報 (alertTurbulence)」時，根據目前關注的 Concern (focusMode) 給予完全定制、風馬牛不相及的精準藥方！
           if (this.alertTurbulence) {
-            if (this.focusMode === 'drive') {
-              return "【枯木逢春，慈悲守度】檢測到你目前的「驅動能量」正處於嚴重的冰火拉扯中（1A 野心過熱，1B 復原結冰）。你内心有著極大的進步、成功焦慮，身體卻極度抗拒、甚至陷入深度倦怠。最需要的解藥是「中斷執念，慈悲滋養」。請停止一邊躺在床上擺爛一邊在腦海中苛責自己的內耗循環。";
-            }
-            if (this.focusMode === 'execute') {
-              return "【打破規矩，先跨一步】檢測到你目前的「執行落地」正處於嚴重的冰火拉扯中（2A 完美框架過熱，2B 敏捷變通結冰）。你把計畫、SOP和條條框框制定得無比完美，但到了需要具體落實或隨機應變時，卻因為害怕出錯而嚴重拖延。最需要的解藥是「大膽破局，不求完美」。";
-            }
-            if (this.focusMode === 'relation') {
-              return "【退步原來是向前】檢測到你目前的「人際互動」正處於嚴重的冰火拉扯中（3A 傾聽同理/迎合過熱，3B 影響力/亮出底線結冰）。你太過在意身邊每個人的感受，寧願委屈自己也不敢說「不」，導致社交超載，甚至產生社交逃避。最需要的解藥是「劃清情感邊界」。";
-            }
-            if (this.focusMode === 'mind') {
-              return "【狂心若歇，歇即菩提】檢測到你目前的「思維視野」正處於嚴重的冰火拉扯中（4A 邏輯分析過熱，4B 宏觀布局/安全感結冰）。你的腦袋一刻不停地分析、拆解、懷疑所有事情的底層細節，卻忽略了整幅大局和人心的溫暖，陷入虛無空轉。解藥是「合上邏輯，回归當下觸覺」。";
-            }
+            if (this.focusMode === 'drive') return "【枯木逢春，慈悲守度】檢測到你目前的「驅動能量」正處於嚴重的冰火拉扯中（1A 野心過熱，1B 復原結冰）。你内心有著極大的成功焦慮，身體卻陷入深度倦怠。最需要的解藥是「中斷執念，慈悲滋養」。請停止躺在床上自責的內耗循環。";
+            if (this.focusMode === 'execute') return "【打破規矩，先跨一步】檢測到你目前的「執行落地」正處於嚴重的冰火拉扯中（2A 完美框架過熱，2B 敏捷變通結冰）。你把計畫、SOP制定得無比完美，但到了需要具體落實時卻因為害怕出錯而嚴重拖延。最需要的解藥是「大膽破局，不求完美」。";
+            if (this.focusMode === 'relation') return "【退步原來是向前】檢測到你目前的「人際互動」正處於嚴重的冰火拉扯中（3A 迎合過熱，3B 亮出底線結冰）。你太過在意身邊每個人的感受，寧願委屈自己也不敢說「不」，導致社交超載甚至逃避。最需要的解藥是「劃清情感邊界」。";
+            if (this.focusMode === 'mind') return "【狂心若歇，歇即菩提】檢測到你目前的「思維視野」正處於嚴重的冰火拉扯中（4A 邏輯分析過熱，4B 宏觀布局/安全感結冰）。你的腦袋一刻不停地分析、懷疑所有事情的底層細節，卻陷入虛無空轉。解藥是「合上邏輯，回归當下觸覺」。";
             return "【守中與簡化】當前『分裂拉扯』極高，處於極端的冰火兩重天中。外在維持著和諧的假象，內心實則波濤洶湧。最需要的解藥是『守中與簡化』。在呼吸間找到一個安全的中軸，不要隨極端的分數起伏隨波逐流。";
           }
+          
+          if (this.alertFreeze) return "【冰河時期，微光喚醒】當前範疇處於『全面冰凍』冬眠狀態。你目前正採取全面逃避、封閉或極低能量運作的策略。此時最需要的不是大刀闊斧的改變，而是溫柔的『微光喚醒』。不求突破，只求回溫。";
+          if (this.alertOverheat) return "【狂心即歇，回頭是岸】當前範疇處於『全面過熱（火燒身）』自焚狀態。你目前的行為張力像一台齒輪發紅、嚴重超載的火車頭，野心、計劃、迎合和思考全部拉滿。最需要的解藥是『強制熄火與降溫』。";
+          if (this.alertSubtleTension) return "【見微知著，治於未病】當前在此範疇中出現了『隱性張力』。雖然你還沒崩潰，但內部已經有暗流湧動（落差達到了 " + this.currentGap.toFixed(1) + " 分）。最需要的解藥是『微調與覺察』。請找出偏高或偏低的那幾項行為，輕輕將它們往中位數撥動一點點。";
+          
           return "【隨遇而安，守護此時】您目前在此範疇處於極佳的『能量平穩』狀態，各張力軸和諧。請保持當下的正念覺察（Mindfulness），不貪求、不嗔恨，平靜地過好當下。";
         },
 
-        // 🌟 核心優化：動態生成 3 條實質解藥細則 (當前 Concern 模式下，拉扯與平穩的建議完全專屬定制)
         getActionCure() {
-          // -------------------------------------------------------------
-          // 狀態一：苦苦狀態 (直觀衝突)
-          // -------------------------------------------------------------
           if (this.alertKuKu) {
             return {
               mindset: "容許殘缺、因緣和合。接受事情的最終呈現是因緣組合的實相，而不是你個人『完美控制』的產物。允許事情只有 80 分，多出來的 20 分放手交給宇宙去流轉。",
@@ -539,9 +619,6 @@
               awareness: "今日練習『調用對立面行為』1 次。如果您是 2A (秩序規範) 過高的人，今天挑選一件日常小事（例如排程或整理），故意不作整理、不按常規一次，看著內心的焦慮升起並慢慢平息。"
             };
           }
-          // -------------------------------------------------------------
-          // 狀態二：壞苦狀態 (動力乾涸 vs 透支過載)
-          // -------------------------------------------------------------
           if (this.alertHuaiKu) {
             if (this.scores['1A'] <= 3 && this.scores['1B'] <= 3) {
               return {
@@ -556,9 +633,6 @@
               awareness: "在你的行事曆上，劃出一個『神聖私人邊界區』（至少30分鐘）。這段時間不回覆任何郵件與訊息，只用來做你自己喜歡的復原、滋養行為。"
             };
           }
-          // -------------------------------------------------------------
-          // 狀態三：行苦狀態 (飛得太高/孤立傲慢)
-          // -------------------------------------------------------------
           if (this.alertXingKu) {
             return {
               mindset: "同體大悲，眾生平等。你建構的高冷思維體系雖然完美，但脫離了具體人的溫暖。要明白，身邊每個人都在經歷著他們當下最真實的心理糾結與苦難。",
@@ -566,48 +640,54 @@
               awareness: "回歸具體的『身體觸覺與溫度』。今天動手做一件最細微的家務（如洗一個碗、掃一塊地），把所有的意念放在雙手的觸覺上，感受水流與物件的具體溫度。"
             };
           }
-
-          // -------------------------------------------------------------
-          // 狀態四：劇烈拉扯狀態 (alertTurbulence - 按 focusMode 四大維度完全客制化)
-          // -------------------------------------------------------------
           if (this.alertTurbulence) {
-            // 🔥 A. 驅動拉扯 (1A過熱，1B冰凍)
-            if (this.focusMode === 'drive') {
-              return {
-                mindset: "放低野心，滋養復原。接受自己當下是一個『電量不足』的具體人類。放下『我必須領先/我必須成功』的執念，此時此刻，不退步就是最了不起的進步。",
-                action: "今天執行『半日無計劃放空』。停止一切目標性的學習與推進。允許自己做一件完全沒用、甚至被認為是浪費時間的小事，對自己溫柔一點。",
-                awareness: "今日練習『內在無評判觀察』。當心裡再次冒出『我今天怎麼又沒看書/我怎麼這麼擺爛』的聲音時，深呼吸一口氣，在心中對自己說：『沒關係，我看到了這份焦慮。我允許自己此時此刻只是休息。』"
-              };
-            }
-            // ⚙️ B. 執行拉扯 (2A過熱，2B冰凍)
-            if (this.focusMode === 'execute') {
-              return {
-                mindset: "完成大於完美。接受『粗糙的開始，好過精美的空轉』。規矩和計劃是為了服務行動，而不是為了用完美主義將你封鎖在出發點上。",
-                action: "執行 10 分鐘『亂做計畫』。挑選一項你拖延了很久的工作，不列提綱、不查資料、不管排版，閉著眼睛、用最粗糙的邏輯瘋狂寫 10 分鐘，動手打破零進度的冰封僵局。",
-                awareness: "今日練習『打破一次日常慣例』。故意打亂一個你平常雷打不動的習慣（例如繞一條新路回家，或是換一間餐廳），體驗在小混亂中靈活隨緣的敏捷快感。"
-              };
-            }
-            // 🤝 C. 人際拉扯 (3A過熱，3B冰凍)
-            if (this.focusMode === 'relation') {
-              return {
-                mindset: "好人不必是討好的人。你不需要為所有人的情緒負責，也不需要獲得全世界的讚譽。建立情感邊界，是對你自己靈性能量最基礎的保護。",
-                action: "今天在對話中說出 1 次『真實的想法』。當別人詢問你的意見時，不迎合對方的預設立場，溫和而坦率地表達你真實的觀點（例如『我覺得另一個方案其實也值得考慮...』）。",
-                awareness: "今日練習『底線覺察』。當你再次不由自主地想答應別人的請求時，閉上嘴巴保持 5 秒鐘的沉默，在心中問自己：『我是真的想幫忙，還是只是害怕對方不喜歡我？』"
-              };
-            }
-            // 🌌 D. 思維拉扯 (4A過熱，4B冰凍)
-            if (this.focusMode === 'mind') {
-              return {
-                mindset: "難得糊塗，狂心頓歇。分析得再完美，不付諸行動，事情在物理世界上就等於沒有發生。放下邏輯的傲慢與恐懼，接受世事本就是無常、無序、不確定的。",
-                action: "今天執行 15 分鐘『大腦合蓋』。停止一切看書、上網、研究與深度思考。去洗個熱水澡、洗洗衣服，或做 50 個深蹲，把能量從大腦強行拉回具體的肌肉運動中。",
-                awareness: "今日練習『不問點解（Why）』。今天在生活中遇到不如意的小細節時，不去追問『為什麼會這樣/是誰的責任』，只是在心中默念三遍：『原來是這樣啊（It is what it is）』，放下批判。"
-              };
-            }
+            if (this.focusMode === 'drive') return {
+              mindset: "放低野心，滋養復原。接受自己當下是一個『電量不足』的具體人類。放下『我必須領先/我必須成功』的執念，此時此刻，不退步就是最了不起的進步。",
+              action: "今天執行『半日無計劃放空』。停止一切目標性的學習與推進。允許自己做一件完全沒用、甚至被認為是浪費時間的小事，對自己溫柔一點。",
+              awareness: "今日練習『內在無評判觀察』。當心裡再次冒出『我今天怎麼又沒看書/我怎麼這麼擺爛』的聲音時，深呼吸一口氣，在心中對自己說：『沒關係，我看到了這份焦慮。我允許自己此時此刻只是休息。』"
+            };
+            if (this.focusMode === 'execute') return {
+              mindset: "完成大於完美。接受『粗糙的開始，好過精美的空轉』。規矩和計劃是為了服務行動，而不是為了用完美主義將你封鎖在出發點上。",
+              action: "執行 10 分鐘『亂做計畫』。挑選一項你拖延了很久的工作，不列提綱、不查資料、不管排版，閉著眼睛、用最粗糙的邏輯瘋狂寫 10 分鐘，動手打破零進度的冰封僵局。",
+              awareness: "今日練習『打破一次日常慣例』。故意打亂一個你平常雷打不動的習慣（例如繞一條新路回家，或是換一間餐廳），體驗在小混亂中靈活隨緣的敏捷快感。"
+            };
+            if (this.focusMode === 'relation') return {
+              mindset: "好人不必是討好的人。你不需要為所有人的情緒負責，也不需要獲得全世界的讚譽。建立情感邊界，是對你自己靈性能量最基礎的保護。",
+              action: "今天在對話中說出 1 次『真實的想法』。當別人詢問你的意見時，不迎合對方的預設立場，溫和而坦率地表達你真實的觀點（例如『我覺得另一個方案其實也值得考慮...』）。",
+              awareness: "今日練習『底線覺察』。當你再次不由自主地想答應別人的請求時，閉上嘴巴保持 5 秒鐘的沉默，在心中問自己：『我是真的想幫忙，還是只是害怕對方不喜歡我？』"
+            };
+            if (this.focusMode === 'mind') return {
+              mindset: "難得糊塗，狂心頓歇。分析得再完美，不付諸行動，事情在物理世界上就等於沒有發生。放下邏輯的傲慢與恐懼，接受世事本就是無常、無序、不確定的。",
+              action: "今天執行 15 分鐘『大腦合蓋』。停止一切看書、上網、研究與深度思考。去洗個熱水澡、洗洗衣服，或做 50 個深蹲，把能量從大腦強行拉回具體的肌肉運動中。",
+              awareness: "今日練習『不問點解（Why）』。今天在生活中遇到不如意的小細節時，不去追問『為什麼會這樣/是誰的責任』，只是在心中默念三遍：『原來是這樣啊（It is what it is）』，放下批判。"
+            };
+            return {
+              mindset: "狂心若歇，守中即安。你目前的和諧只是表象，內心實則火山與冰山並存。不要試著把每一件事都做到極致（8分以上），也不要因為挫敗而徹底自我放棄（3分以下）。守住中軸，不偏不倚，就是解脫。",
+              action: "實行『待辦清單砍掉一半』計畫。把今天想做的、要做的事情列表，用鋼筆強行劃掉 50% 比較次要的項目。今天只集中精力，把剩餘最核心的那一件事情安靜地做完。",
+              awareness: "今日練習『10次呼吸覺察』。當你感到被極端的過熱情緒（狂熱、焦慮）或者極冷的冰凍情緒（沮喪、逃避）席捲時，立刻停下手頭的事，閉上眼深呼吸 10 次，靜靜看著情緒起伏而不隨之起舞。"
+            };
           }
-
-          // -------------------------------------------------------------
-          // 狀態五：能量平穩狀態 (心靈止息 - 平穩)
-          // -------------------------------------------------------------
+          if (this.alertFreeze) {
+            return {
+              mindset: "🌱 接納低谷，保存火苗。冰封是身心為了保護你而開機的『自我休眠』。此時千萬不要強行要求自己振作或取得進步。接納目前的零動力，這也是因緣造化中不可缺少的一部分。",
+              action: "今日實踐 1 分鐘的『微光喚醒』。在您精選的 15 題冰凍行為中，挑選最簡單的一件事（例如翻開書看 1 頁，或者只是起身站 1 分鐘）。今天只做這 1 分鐘，做完立刻躺下休息，輕輕打破僵局即可。",
+              awareness: "今日做 3 次『溫度覺察』。在捧起溫水、摸到被窩、或吃熱食時，將全部注意力放在手掌或舌尖感受到的『溫熱感』上，在心中對自己說：『看，溫暖一直都在。』以此溫柔地把意念和生命力重新帶回體內。"
+            };
+          }
+          if (this.alertOverheat) {
+            return {
+              mindset: "🌊 歇即菩提，臣服無為。你不需要撐起整個宇宙，地球沒有你依然會完美地照常自轉。看破自己「不能停下來」的不安全感與掌控焦慮，允許自己此刻什麼也不做。",
+              action: "今日強制執行 1 小時的『完全無為（Do Nothing）』。關閉手機和電腦，不要排程、不看書、不思考，只是躺在沙發上放空、聽聽窗外的聲音、或者安靜地閉目養神。不允許自己做任何『有生產力』的事情。",
+              awareness: "今日實踐 5 次『冰水覺察』。在情緒焦躁、腦袋超載時，去用冰涼的水洗一把臉，或者倒一杯冰水小口吞嚥，仔細感知冷意在皮膚或喉嚨中擴散、浸潤的物理感覺，觀想腦中的狂熱隨著冰涼感漸漸沉澱、冷卻。"
+            };
+          }
+          if (this.alertSubtleTension) {
+             return {
+                mindset: "見微知著，防微杜漸。不要等到情緒徹底崩潰才去休息，也不要等到進度完全停滯才去行動。現在的小失衡，是身體給你的溫柔提醒。",
+                action: "今日執行『10% 微調法則』。如果你覺得稍微有點累，今天就提早 10% 的時間下班/休息；如果你覺得有點拖延，今天就只做原本計畫 10% 的任務。用最小的力氣撥正天平。",
+                awareness: "今日練習『水分覺察』。在每次喝水時，感受水滑過喉嚨的感覺，並在心中問自己一句：『我現在身體哪個部位感覺最緊繃？』，只需看著那個緊繃感，不用刻意放鬆它。"
+             };
+          }
           return {
             mindset: "隨遇而安，守護此時。當下的和諧是極難得的善緣。不要執著於維持這份和諧，也不要為未來尚未發生的波動而提前焦慮。安住於當下，就是最好的修行。",
             action: "今日寫下『3 個感恩點』。在紙上寫下今天讓你感到溫暖、幸運或喜悅的 3 個具體小細節，並在心中對這 3 個因緣真誠道謝，儲存這份心靈正能量。",
