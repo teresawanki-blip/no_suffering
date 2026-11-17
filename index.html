@@ -11,6 +11,13 @@
     /* 自訂滑桿顏色 */
     input[type=range]::-webkit-slider-thumb {
       background: #4F46E5;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
     /* 溫柔的淡入浮現動畫 */
     @keyframes fade-in-up {
@@ -144,9 +151,9 @@
           <span class="mr-1.5">💡</span> 行為打分指引：最近兩星期內，您的身心狀態是？
         </h3>
         <div class="space-y-1.5 text-slate-700 text-xs md:text-sm">
-          <p>❄️ <strong class="text-blue-700">1 - 2 分（能量冬眠）</strong>：最近兩星期內<strong>「極少或幾乎不曾」</strong>出現此行為（代表身心正採取低能耗保護，非性格缺陷）。</p>
-          <p>🟢 <strong class="text-emerald-700">3 - 5 分（中道平穩）</strong>：最近兩星期內<strong>「偶爾或自然順應」</strong>地實踐此行為（健康且不緊繃的中立狀態）。</p>
-          <p>🔴 <strong class="text-red-700">6 - 7 分（自動防禦）</strong>：最近兩星期內<strong>「高度頻繁或強迫性」</strong>執行（代表身心因應外部壓力的防禦或代償，非道德缺陷）。</p>
+          <p>❄️ <strong class="text-blue-700">1 - 2 分（能量冬眠）</strong>：最近兩星期內<strong>「極少 or 幾乎不曾」</strong>出現此行為（代表身心正採取低能耗保護，非性格缺陷）。</p>
+          <p>🟢 <strong class="text-emerald-700">3 - 5 分（中道平穩）</strong>：最近兩星期內<strong>「偶爾 or 自然順應」</strong>地實踐此行為（健康且不緊繃的中立狀態）。</p>
+          <p>🔴 <strong class="text-red-700">6 - 7 分（自動防禦）</strong>：最近兩星期內<strong>「高度頻繁 or 強迫性」</strong>執行（代表身心因應外部壓力的防禦或代償，非道德缺陷）。</p>
         </div>
       </div>
 
@@ -180,7 +187,7 @@
               <p class="text-sm md:text-base text-slate-700 font-medium pl-8 leading-relaxed">{{ item.desc }}</p>
             </div>
 
-            <!-- 滑桿：初始為 null，動態激活 -->
+            <!-- 滑桿 -->
             <div class="flex items-center w-full md:w-48 pl-8 md:pl-0">
               <span class="text-xs text-slate-400 mr-2 w-4 text-center">1</span>
               <input 
@@ -260,7 +267,7 @@
           </div>
           <p class="text-lg md:text-xl font-bold text-white leading-normal mb-3">{{ todayRecommendation.desc }}</p>
 
-          <!-- 🌟 動態顯示專屬的具體實質建議 (Actionable Cure) 🌟 -->
+          <!-- 🌟 動態顯示專屬的具體實質建議 🌟 -->
           <div class="bg-indigo-900/60 p-4 rounded-lg border-l-4" :class="todayRecommendation.score >= 6 ? 'border-orange-400' : 'border-blue-400'">
             <p class="text-sm md:text-base text-indigo-50 leading-relaxed font-medium">
               <strong class="text-white">{{ todayRecommendation.score >= 6 ? '🔥 降溫微練習：' : '❄️ 破冰微練習：' }}</strong>
@@ -306,7 +313,7 @@
 
       <div class="p-5 space-y-6">
 
-        <!-- 🧠 AI 心靈實相智慧提要 (由打分動態引導與寫出) -->
+        <!-- 🧠 AI 心靈實相智慧提要 -->
         <div class="bg-gradient-to-br from-indigo-50/40 to-purple-50/40 p-5 rounded-xl border border-indigo-100 shadow-sm animate-fade-in-up">
           <h3 class="font-bold text-slate-800 text-sm md:text-base mb-2.5 flex items-center">
             <span class="text-lg mr-2">🧠</span> AI 心靈實相分析與智慧提要
@@ -424,10 +431,6 @@
           currentPage: 1,
           pageSize: 3,
 
-          // ==========================================
-          // 完整題庫：去道德化/字眼溫和化改編
-          // 初始分數均預設為 null (避免錨定效應)
-          // ==========================================
           behaviors: [
             // 1A/1B (Drive)
             { id: 1, module: '1A 目標野心', desc: '設定高標準目標：以此為前進動力，精益求精。', score: null, 
@@ -448,7 +451,7 @@
               cureFire: '今天試著放下一個「食之無味棄之可惜」的小執念，溫柔對自己說：「我允許自己視緣分而放手。」',
               cureIce: '為自己設定一個不耗力且必能完成的 2 分鐘微拉筋計畫，重新建立微小的掌控力。'
             },
-            { id: 5, module: '1A 目標野心', desc: '全力以赴投入：行動時全神貫注，在專注中感受心流與融入.score: null', score: null, 
+            { id: 5, module: '1A 目標野心', desc: '全力以赴投入：行動時全神貫注，在專注中感受心流與融入。', score: null, 
               frozenHint: '心流狀態被暫時鎖定，這通常是大腦在對當前重複性事務的意義感進行本能的安全調整。',
               overheatHint: '過度專注且停不下來，大腦正高速空轉，可能會不小心忽略了身體的疲勞警報。',
               cureFire: '設定每 40 分鐘起立伸懶腰、遠眺 3 分鐘，以溫和的韻律強行打破緊繃的高頻節奏。',
@@ -478,7 +481,7 @@
               cureFire: '在筆記中畫一條分界線，把超出自己掌控的外在環境與他人反應，輕輕撥回給「緣分與對方」。',
               cureIce: '在微小決策上（比如今天中午吃什麼）快速做決定並坦然順應，不反悔、不猶豫。'
             },
-            { id: 14, module: '1B 好奇進化', desc: '保持日常學習：有規律地汲取新概念、技能或感興趣的智慧法雨。', score: null, 
+            { id: 14, module: '1B 好奇進化', desc: '保持日常學習：有規律地汲取新概念、技能 or 感興趣的智慧法雨。', score: null, 
               frozenHint: '吸納新知的頻寬變窄，這是大腦已被日常瑣務飽和，本能地拒絕再增加認知負載。',
               overheatHint: '在資訊焦慮驅使下盲目囤積課程或文章，可能只是在用「努力」來購買對未來的安全感。',
               cureFire: '今天大膽退訂一個用不上的訂閱或群組，對自己說：「此時我所擁有的，已足夠滋養我的當下。」',
@@ -525,11 +528,11 @@
             { id: 26, module: '2A 秩序規範', desc: '細分目標與排程：將大目標解構成清晰步驟，編排溫和有序的執行節奏。', score: null, 
               frozenHint: '抗拒排程，通常是因為眼前的壓力過於龐雜無序，大腦本能地用「不看、不理」來獲得短暫安寧。',
               overheatHint: '試圖用密不透風、毫無彈性的時間表，來對抗生活中隨時隨地可能發生的因緣變化。',
-              cureFire: '今天下午刻意挪出 1 小時的「神神聖空白期」，不做計劃、不設死線，隨緣而動。',
+              cureFire: '今天下午刻意挪出 1 小時的「神聖空白期」，不做計劃、不設死線，隨緣而動。',
               cureIce: '在小紙條上僅寫下「今天最舒服的一件事」，完成後溫柔撕去，不給大腦施加連帶的計劃重負。'
             },
             { id: 27, module: '2A 秩序規範', desc: '善用清單輔助：透過待辦清單 or 日程表，協助梳理內在視野。', score: null, 
-              frozenHint: '抗拒列出清單，可能是在保護自己，逃避那些密密麻麻的未辦事項所帶來的催促感。',
+              frozenHint: '抗拒列出清單，可能是在保護自己，逃避 those 密密麻麻的未辦事項所帶來的催促感。',
               overheatHint: '淪為「清單的打勾機器」，完成任務變成了唯一的價值感來源，卻忘了過程的流動。',
               cureFire: '今天溫柔地從清單中劃掉 2 個其實可以延期、無傷大雅的邊緣任務，體驗「放下的自由」。',
               cureIce: '今天把腦海中一團亂麻的焦慮，全部寫在紙上。只要寫下來，大腦的內存就會瞬間釋放。'
@@ -543,7 +546,7 @@
             { id: 29, module: '2A 秩序規範', desc: '精準把控微細瑕疵：留意別人忽略嘅細節錯誤並即時修正，追求高品質產出。', score: null, 
               frozenHint: '對細節完全不願顧及，通常是心理資源已到乾枯臨界，只能以最低消耗勉強交差。',
               overheatHint: '過度專注於細微末節（如字體大小或排版細節），實際上是在用微觀完美避開宏觀的核心推進。',
-              cureFire: '今天寄送工作便簽或文稿時，故意保留一處不傷大雅的小排版瑕疵，勇敢按發送，體驗釋懷。',
+              cureFire: '今天寄送工作便簽或文稿時，故意保留一處不傷大雅的小排版瑕疵，勇敢按發送，體驗釋懷.html。',
               cureIce: '今天在做一件小事時（例如洗碗或整理桌面），多花 2 分鐘把它做到極致乾淨，找回對品質的微小掌控感。'
             },
             { id: 30, module: '2A 秩序規範', desc: '建立標準流程（SOP）：將重複性事務進行框架梳理，讓大腦在規律中省力。', score: null, 
@@ -579,7 +582,7 @@
               cureIce: '回想最近一次突發小混亂，在紙記下「最壞的物理後果」，觀察其實際影響並非不可承受。'
             },
             { id: 41, module: '2B 敏捷破局', desc: '彈性調整執行手段：不執泥於單一路徑，能依據當前緣分與環境變化順勢應變。', score: null, 
-              frozenHint: '固執地死守舊章法，是因為此時將「規规律」當成了唯一的救生圈，害怕變通會帶來秩序失控。',
+              frozenHint: '固執地死守舊章法，是因為此時將「規律」當成了唯一的救生圈，害怕變通會帶來秩序失控。',
               overheatHint: '朝令夕改、一遇挫折便輕易轉換做法，實際上是內在對「深度耕耘需要耐心」的一種浮躁迴避。',
               cureFire: '今天面對一項卡頓的任務，給自己 15 分鐘的耐心，溫和堅持既有方案，不做輕浮微調。',
               cureIce: '今天遇到一個卡住的小問題時，試著問身邊的人：「如果是你，你會用什麼奇怪的方法解決？」並照著做一次。'
@@ -605,7 +608,7 @@
             { id: 45, module: '2B 敏捷破局', desc: '在資訊不全下決策：接受世事無絕對確定性，能夠喺關鍵時刻快速拍板。', score: null, 
               frozenHint: '決策癱瘓，是因為內心過度害怕承擔決策後的代價，試圖用無限期搜集資料來拖延。',
               overheatHint: '憑著一時衝動隨意武斷拍板，美其名曰果敢，實則是對風險的傲慢與草率。',
-              cureFire: '今天做重要決定前，強迫自己去詢問一個與你意見相反的人的想法，認真聽完再做決定。',
+              cureFire: '今天做重要決定前，強迫自己先去詢問一個與你意見相反的人的想法，認真聽完再做決定。',
               cureIce: '今天在面對一個小選擇時（例如午餐吃什麼），只給自己 10 秒鐘思考，憑直覺選定後絕不後悔。'
             },
             { id: 48, module: '2B 敏捷破局', desc: '不拘泥教條打破常規：當舊規則阻礙進度時，敢於打破秩序用獨創方法解決。', score: null, 
@@ -886,6 +889,25 @@
         },
 
         // 已打分的分數平均計算 (未打分的模塊回歸 4 分平穩值，防範空運算)
+        /* 
+           核心修復點：scores 在 Vue 的 computed 中被宣告為一個 Computed getter 屬性物件。
+           所以在 driveAvg, executeAvg, relationAvg, mindAvg 中，我們應該直接調用 `this.scores` 物件
+           來獲取對應的子板塊平均數（例如：`this.scores['1A']`），千萬不要寫成方法調用 `this.scores()['1A']` 
+           或引發 computed 內部的 undefined 遞迴卡死。
+        */
+        scores() {
+          return {
+            '1A': this.getAverageByModule('1A 目標野心'),
+            '1B': this.getAverageByModule('1B 好奇進化'),
+            '2A': this.getAverageByModule('2A 秩序規範'),
+            '2B': this.getAverageByModule('2B 敏捷破局'),
+            '3A': this.getAverageByModule('3A 同理傾聽'),
+            '3B': this.getAverageByModule('3B 影響引導'),
+            '4A': this.getAverageByModule('4A 邏輯解構'),
+            '4B': this.getAverageByModule('4B 戰略佈局')
+          };
+        },
+
         driveAvg() { return (this.scores['1A'] + this.scores['1B']) / 2; },
         executeAvg() { return (this.scores['2A'] + this.scores['2B']) / 2; },
         relationAvg() { return (this.scores['3A'] + this.scores['3B']) / 2; },
@@ -939,20 +961,12 @@
           }
           return this.behaviors; 
         },
-        scores() {
-          return {
-            '1A': this.getAverageByModule('1A 目標野心'),
-            '1B': this.getAverageByModule('1B 好奇進化'),
-            '2A': this.getAverageByModule('2A 秩序規範'),
-            '2B': this.getAverageByModule('2B 敏捷破局'),
-            '3A': this.getAverageByModule('3A 同理傾聽'),
-            '3B': this.getAverageByModule('3B 影響引導'),
-            '4A': this.getAverageByModule('4A 邏輯解構'),
-            '4B': this.getAverageByModule('4B 戰略佈局')
-          };
-        },
 
         // 1-7 制差值校準
+        /* 
+           這裡也是關鍵修復：我們應當直接訪問 `this.scores['2A']`（也就是 `this.scores` 作為屬性名訪問），
+           千萬不要加上括號，避免在運行時引發 undefined 解析崩潰。
+        */
         alertKuKu() {
           if (this.ratedCount === 0) return false;
           const tension1 = this.scores['2A'] - this.scores['3A'];
@@ -1097,7 +1111,7 @@
 
           if (this.alertXingKu) {
             return "【同體大悲，降維同心】當前『行苦』波動顯著。您的思維站得極高、看得很透，卻可能在潛意識中主動與周邊具體的事與溫暖的人產生了隔離，以尋求智識上的絕對安全感。
-            \n💡 專屬對治：解藥是『落地慈悲與具體溫度』。請走進真實的人間，不帶任何評判地去聆聽身邊一位同事或家人的碎碎念，或者親自打掃一下桌面。讓雙手去觸碰水與物件的具體溫度，在對具體事物的踏實打理中，重溫心靈的溫度連結。";
+            \n💡 專屬對治：解藥是『落地慈悲與具體溫度』。請走進真實的人間，不帶 any 評判地去聆聽身邊一位同事或家人的碎碎念，或者親自打掃一下桌面。讓雙手去觸碰水與物件的具體溫度，在對具體事物的踏實打理中，重溫心靈的溫度連結。";
           }
 
           if (this.alertTurbulence) {
@@ -1137,7 +1151,7 @@
             const isOverheat = rec.score >= 6;
             return {
               mindset: isOverheat 
-                ? `【容許殘缺】在「${rec.module}」上，嘗試卸下完美的重負。接受每件事物的呈現都是無數因緣和合的實相，而非您個人能『絕對控制』的產物。對自己說：「不完美亦是一種流動的圓滿，我很安全。」` 
+                ? `【容許殘缺】在「${rec.module}」上，嘗試卸下完美的重負。接受每件事物的呈現都是無數因緣 and 和合的實相，而非您個人能『絕對控制』的產物。對自己說：「不完美亦是一種流動的圓滿，我很安全。」` 
                 : `【無愧冬眠】在「${rec.module}」上，容許短暫的無力。將此時的冬眠視為靈魂自發修補、儲能的神聖階段。對自己說：「無力是身體在護持我，此時此刻，不退步就是最了不起的進步。」`,
               action: isOverheat 
                 ? `【強制降溫練習】${rec.cureFire}` 
