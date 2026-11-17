@@ -517,91 +517,6 @@
         this.loadSavedScores();
       },
       computed: {
-        // 1. 補全過熱防禦行為的定義 (分數 >= 6)
-        overheatedBehaviors() {
-          return this.filteredBehaviors.filter(b => b.score !== null && b.score >= 6);
-        },
-        // 2. 補全冬眠保護行為的定義 (分數 <= 2)
-        frozenBehaviors() {
-          return this.filteredBehaviors.filter(b => b.score !== null && b.score <= 2);
-        },
-        // 3. 補全過濾後的行為 (根據當前 focusMode 篩選)
-        filteredBehaviors() {
-          if (this.focusMode === 'all') return this.behaviors;
-          const prefixMap = {
-            'drive': ['1A', '1B'],
-            'execute': ['2A', '2B'],
-            'relation': ['3A', '3B'],
-            'mind': ['4A', '4B']
-          };
-          const prefixes = prefixMap[this.focusMode] || [];
-          return this.behaviors.filter(b => prefixes.some(p => b.module.startsWith(p)));
-        },
-        // 4. 重構智慧整合算法，字數大減 75%，排版高雅
-        aiDiagnosisSummary() {
-          if (this.ratedCount === 0) {
-            return "心若不照鏡，明鏡亦無塵。請在上方評分區拖動任意滑桿，AI 將立刻在此為您書寫個人專屬的心靈實相提要分析。";
-          }
-
-          const overheats = this.overheatedBehaviors;
-          const freezes = this.frozenBehaviors;
-
-          if (overheats.length === 0 && freezes.length === 0) {
-            return "✨【中道統合】當前各項身心能量穩健平衡，無明顯極端失衡。請順應因緣，安住當下。";
-          }
-
-          let summary = "【AI 心靈整合診斷】\n";
-
-          // 🔴 1. 自動統計個數，將題號（如 #57, #66）歸納在一起
-          let compensationText = "";
-          if (overheats.length > 0) {
-            const ids = overheats.map(b => `#${b.id}`).join(', ');
-            compensationText += `🔴 過熱代償 (${overheats.length} 項 - ${ids}) `;
-          }
-          if (freezes.length > 0) {
-            const ids = freezes.map(b => `#${b.id}`).join(', ');
-            compensationText += `❄️ 冬眠保護 (${freezes.length} 項 - ${ids})`;
-          }
-
-          summary += `${compensationText.trim()}\n\n`;
-
-          // 🔴 2. 濃縮為 1 句精闢的心理代償歸因
-          let causalAnalysis = "💡 歸因分析：";
-          if (overheats.length > 0 && freezes.length > 0) {
-            causalAnalysis += "身心因外部張力過載，正同時處於「強迫性過度控制」與「防禦性主動斷電」的雙重極端拉扯中。";
-          } else if (overheats.length > 0) {
-            causalAnalysis += "當前身心齒輪高頻運轉，正透過過度用力或尋求控制等主動防禦機制，代償內心的不確定感。";
-          } else if (freezes.length > 0) {
-            causalAnalysis += "自我保護機制已自發性開啟節能收縮，以暫時阻斷外部消耗來呵護乾枯的心靈元氣。";
-          }
-          summary += `${causalAnalysis}\n\n`;
-
-          // 🔴 3. 給出 1 段直擊核心的「⚡ AI 統合觀照」
-          let contemplation = "⚡ AI 統合觀照：";
-          if (overheats.length > 0 && freezes.length > 0) {
-            contemplation += "「冰火同爐，最忌硬推。」您的意志在拼命踩油門，而身體已在拉手煞車。此刻上乘的修行不是急著去修正任何一方，而是全然接納當下的疲憊，強行熄火，給自己一場安心的深層放空。";
-          } else if (overheats.length > 0) {
-            contemplation += "「狂心若歇，歇即菩提。」您不需要維持百分之百的完美與掌控。看破那份不敢停下來的焦慮與不安全感，嘗試今天只做到 80 分就溫柔放手，讓緊繃的心靈引擎降溫。";
-          } else if (freezes.length > 0) {
-            contemplation += "「順應冬藏，微光喚醒。」此時的寂滅是生命厚積薄發的必經階段。切莫因暫時的無力而苛責自己，允許自己理直氣壯地休息，今天只需跟隨一個極小的溫潤微習慣，靜待春暖花開。";
-          }
-          summary += contemplation;
-
-          return summary;
-        },
-        // 5. 原有 scores 及平均數計算保持不變
-        scores() {
-          return {
-            '1A': this.getAverageByModule('1A 目標野心'),
-            '1B': this.getAverageByModule('1B 好奇進化'),
-            '2A': this.getAverageByModule('2A 秩序規範'),
-            '2B': this.getAverageByModule('2B 敏捷破局'),
-            '3A': this.getAverageByModule('3A 同理傾聽'),
-            '3B': this.getAverageByModule('3B 影響引導'),
-            '4A': this.getAverageByModule('4A 邏輯解構'),
-            '4B': this.getAverageByModule('4B 戰略佈局')
-          };
-        },
         totalPages() {
           return Math.ceil(this.filteredBehaviors.length / this.pageSize);
         },
@@ -633,7 +548,7 @@
             return { quote: "「不要為明天憂慮，因為明天自有明天的憂慮；一天的難處一天當就夠了。」", source: "馬太福音 6:34" };
           }
           if (this.alertFreeze) {
-            return { quote: " "壓傷的蘆葦，他不折斷；將殘的燈火，他不吹滅。」", source: "以賽亞書 42:3" };
+            return { quote: "「壓傷的蘆葦，他不折斷；將殘的燈火，他不吹滅。」", source: "以賽亞書 42:3" };
           }
           if (this.alertOverheat) {
             return { quote: "「狂心若歇，歇即菩提。你們得救在乎歸回安息。」", source: "楞嚴經 / 以賽亞書" };
@@ -652,6 +567,47 @@
           if (this.alertOverheat) return "🔥 自動防禦過熱";
           if (this.alertSubtleTension) return "🟡 隱性張力微波";
           return "🟢 平靜安穩和諧";
+        },
+        aiDiagnosisSummary() {
+          if (this.ratedCount === 0) return "心若不照鏡，明鏡亦無塵。請在上方評分區拖動任意滑桿，AI 將立刻在此為您書寫個人專屬的心靈實相提要分析。";
+          let result = "【AI 心靈簡明觀照】\n";
+          const focusNames = { 'drive': '🔥 能量驅動', 'execute': '⚙️ 執行落地', 'relation': '🤝 人際互動', 'mind': '🌌 思維全局', 'all': '🧘 完整全域心靈' };
+          result += `當前心靈把脈定位於：${focusNames[this.focusMode]} 範疇。基於您誠實填寫的數據，此時此刻您的心靈正呈現以下實相軌跡：\n\n`;
+          const overheats = this.overheatedBehaviors;
+          const freezes = this.frozenBehaviors;
+
+          if (overheats.length === 0 && freezes.length === 0) {
+            result += "✨【中道和諧】當前能量狀態平穩，無極端失衡。請保持當下的安詳與正念覺察，隨順因緣。";
+            return result;
+          }
+          if (overheats.length > 0) {
+            const ids = overheats.map(b => `#${b.id}`).join(', ');
+            result += `🔴【代償過熱 (${overheats.length} 項行為 - ${ids})】\n部分齒輪過度運轉。這反映出內心在面對外部無常時，正試圖以極高的控制程序或求全反應（如求認同、過度用力）來獲取安全感，需提防身心透支。\n\n`;
+          }
+          if (freezes.length > 0) {
+            const ids = freezes.map(b => `#${b.id}`).join(', ');
+            result += `❄️【冬眠保護 (${freezes.length} 項行為 - ${ids})】\n部分功能進入節能休眠。這並非怠惰或性格缺陷，而是身心在極度疲累後啟動的「主動斷電保護」，此時最需要無愧疚的大休息。\n\n`;
+          }
+          if (overheats.length > 0 && freezes.length > 0) {
+            result += "⚡【AI 統合觀照：冰火拉扯】\n您的身心目前同時存在「拼命代償用功」與「疲憊斷電收縮」的拉扯內耗。這表明意志在強推，而身體在抗議。最上乘的解藥是『強制熄火，擁抱無力，給自己放個假』。";
+          } else if (overheats.length > 0) {
+            result += "⚡【AI 統合觀照：全速齒輪】\n您當前如同全速奔馳但輪軸發熱的火車頭。請看破「不敢停下」的不安全感，適時強制熄火與放鬆。";
+          } else if (freezes.length > 0) {
+            result += "⚡【AI 統合觀照：深層冬眠】\n您目前正處於心靈的保護性閉關期。切勿強行推動自己前進，用每日微習慣溫和復甦即可。";
+          }
+          return result;
+        },
+        scores() {
+          return {
+            '1A': this.getAverageByModule('1A 目標野心'),
+            '1B': this.getAverageByModule('1B 好奇進化'),
+            '2A': this.getAverageByModule('2A 秩序規範'),
+            '2B': this.getAverageByModule('2B 敏捷破局'),
+            '3A': this.getAverageByModule('3A 同理傾聽'),
+            '3B': this.getAverageByModule('3B 影響引導'),
+            '4A': this.getAverageByModule('4A 邏輯解構'),
+            '4B': this.getAverageByModule('4B 戰略佈局')
+          };
         },
         driveAvg() { return (this.scores['1A'] + this.scores['1B']) / 2; },
         executeAvg() { return (this.scores['2A'] + this.scores['2B']) / 2; },
@@ -673,39 +629,80 @@
         alertXingKu() {
           if (this.ratedCount === 0) return false;
           return ((this.scores['4A'] + this.scores['4B']) / 2 >= 5.5) && ((this.scores['2B'] + this.scores['3B']) / 2 <= 2.5);
-        },
-        // 用於檢測是否觸發其他警報的輔助 computed
-        alertFreeze() {
-          if (this.ratedCount === 0) return false;
-          return this.filteredBehaviors.every(b => b.score === null || b.score <= 2.2);
-        },
-        alertOverheat() {
-          if (this.ratedCount === 0) return false;
-          return this.filteredBehaviors.every(b => b.score === null || b.score >= 5.5);
-        },
-        alertTurbulence() {
-          return this.overheatedBehaviors.length > 0 && this.frozenBehaviors.length > 0;
-        },
-        alertSubtleTension() {
-          if (this.ratedCount === 0) return false;
-          return !this.alertTurbulence && !this.alertFreeze && !this.alertOverheat && this.currentGap >= 1.5;
-        },
-        currentGap() {
-          const scores = this.filteredBehaviors.filter(b => b.score !== null).map(b => b.score);
-          if (scores.length < 2) return 0;
-          return Math.max(...scores) - Math.min(...scores);
-        },
-        todayRecommendation() {
-          const extremes = [...this.overheatedBehaviors, ...this.frozenBehaviors];
-          if (extremes.length === 0) return null;
-          // 優先挑選分數最極端的一題
-          return extremes.reduce((prev, curr) => {
-            const prevDev = Math.abs(prev.score - 4);
-            const currDev = Math.abs(curr.score - 4);
-            return currDev > prevDev ? curr : prev;
-          });
         }
       },
+      methods: {
+        handleSliderChange(item, event) {
+          item.score = Number(event.target.value);
+          this.saveScores();
+        },
+        nextPage() { if (this.currentPage < this.totalPages) this.currentPage++; },
+        prevPage() { if (this.currentPage > 1) this.currentPage--; },
+        checkNewDay() {
+          const today = new Date().toLocaleDateString('zh-HK');
+          const savedDate = localStorage.getItem('no_suffering_last_date');
+          if (savedDate && savedDate !== today) {
+            this.isNewDay = true;
+            this.behaviors.forEach(b => b.score = null);
+            this.saveScores();
+            localStorage.removeItem('no_suffering_practice_date');
+          }
+          localStorage.setItem('no_suffering_last_date', today);
+        },
+        completePractice() {
+          this.practiceDone = true;
+          localStorage.setItem('no_suffering_practice_date', new Date().toLocaleDateString('zh-HK'));
+        },
+        getCurrentAvg() {
+          if (this.focusMode === 'drive') return this.driveAvg;
+          if (this.focusMode === 'execute') return this.executeAvg;
+          if (this.focusMode === 'relation') return this.relationAvg;
+          if (this.focusMode === 'mind') return this.mindAvg;
+          return 4;
+        },
+        getAverageByModule(moduleName) {
+          const ratedItems = this.behaviors.filter(b => b.module === moduleName && b.score !== null);
+          if (ratedItems.length === 0) return 4;
+          return ratedItems.reduce((sum, b) => sum + b.score, 0) / ratedItems.length;
+        },
+        getModuleColor(module) {
+          if (module.includes('1A') || module.includes('1B')) return 'bg-orange-100 text-orange-800 border-orange-200';
+          if (module.includes('2A') || module.includes('2B')) return 'bg-blue-100 text-blue-800 border-blue-200';
+          if (module.includes('3A') || module.includes('3B')) return 'bg-pink-100 text-pink-800 border-pink-200';
+          if (module.includes('4A') || module.includes('4B')) return 'bg-purple-100 text-purple-800 border-purple-200';
+          return 'bg-gray-100 text-gray-800';
+        },
+        selectFocus(mode) {
+          this.focusMode = mode;
+          this.currentPage = 1;
+          localStorage.setItem('no_suffering_focus_mode', mode);
+        },
+        saveScores() {
+          const scoresMap = this.behaviors.map(b => ({ id: b.id, score: b.score }));
+          localStorage.setItem('no_suffering_scores', JSON.stringify(scoresMap));
+        },
+        loadSavedScores() {
+          const savedFocus = localStorage.getItem('no_suffering_focus_mode');
+          if (savedFocus) this.focusMode = savedFocus;
+          const practiceDate = localStorage.getItem('no_suffering_practice_date');
+          if (practiceDate === new Date().toLocaleDateString('zh-HK')) {
+            this.practiceDone = true;
+          }
+          const saved = localStorage.getItem('no_suffering_scores');
+          if (saved) {
+            try {
+              const scoresMap = JSON.parse(saved);
+              scoresMap.forEach(item => {
+                const behavior = this.behaviors.find(b => b.id === item.id);
+                if (behavior && item.score !== undefined && item.score !== null) {
+                  behavior.score = item.score > 7 ? Math.min(7, Math.round((item.score - 1) * 6 / 9) + 1) : item.score;
+                }
+              });
+            } catch (e) {
+              console.error("存檔加載錯誤：", e);
+            }
+          }
+        },
         resetScores() {
           this.filteredBehaviors.forEach(b => b.score = null);
           this.currentPage = 1;
