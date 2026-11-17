@@ -11,13 +11,6 @@
     /* 自訂滑桿顏色 */
     input[type=range]::-webkit-slider-thumb {
       background: #4F46E5;
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
     /* 溫柔的淡入浮現動畫 */
     @keyframes fade-in-up {
@@ -187,7 +180,7 @@
               <p class="text-sm md:text-base text-slate-700 font-medium pl-8 leading-relaxed">{{ item.desc }}</p>
             </div>
 
-            <!-- 滑桿 -->
+            <!-- 滑桿：初始為 null，動態激活 -->
             <div class="flex items-center w-full md:w-48 pl-8 md:pl-0">
               <span class="text-xs text-slate-400 mr-2 w-4 text-center">1</span>
               <input 
@@ -240,7 +233,7 @@
       </div>
     </div>
 
-    <!-- 🎯 3. 今日心靈防爆一味藥 -->
+    <!-- 🎯 3. 今日心靈防爆一味藥 (專屬實質行動建議) -->
     <div class="bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-xl shadow-lg p-6 mb-8 border border-indigo-950 relative overflow-hidden">
       <div class="flex items-center space-x-2 mb-3">
         <span class="text-2xl">🎯</span>
@@ -267,7 +260,7 @@
           </div>
           <p class="text-lg md:text-xl font-bold text-white leading-normal mb-3">{{ todayRecommendation.desc }}</p>
 
-          <!-- 🌟 動態顯示專屬的具體實質建議 🌟 -->
+          <!-- 🌟 動態顯示專屬的具體實質建議 (Actionable Cure) 🌟 -->
           <div class="bg-indigo-900/60 p-4 rounded-lg border-l-4" :class="todayRecommendation.score >= 6 ? 'border-orange-400' : 'border-blue-400'">
             <p class="text-sm md:text-base text-indigo-50 leading-relaxed font-medium">
               <strong class="text-white">{{ todayRecommendation.score >= 6 ? '🔥 降溫微練習：' : '❄️ 破冰微練習：' }}</strong>
@@ -313,7 +306,7 @@
 
       <div class="p-5 space-y-6">
 
-        <!-- 🧠 AI 心靈實相智慧提要 -->
+        <!-- 🧠 AI 心靈實相智慧提要 (由打分動態引導與寫出) -->
         <div class="bg-gradient-to-br from-indigo-50/40 to-purple-50/40 p-5 rounded-xl border border-indigo-100 shadow-sm animate-fade-in-up">
           <h3 class="font-bold text-slate-800 text-sm md:text-base mb-2.5 flex items-center">
             <span class="text-lg mr-2">🧠</span> AI 心靈實相分析與智慧提要
@@ -332,7 +325,7 @@
           <div v-if="alertHuaiKu" class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded text-sm md:text-base text-amber-800 leading-relaxed">
             <strong class="block text-base md:text-lg mb-1.5">🍂 壞苦防禦預警！(變異倦怠)</strong>
             <span v-if="scores['1A'] <= 2.2 && scores['1B'] <= 2.2">您正處於身心低能耗的自我保護期。目標與動力自發性進入休眠，請給自己一場安心且不抱愧疚的深層大休息。</span>
-            <span v-else class="whitespace-pre-line">您的【目標野心 1A】此時大於【好奇復原 1B】，追求結果的意志正在加快內心資源的消耗。</span>
+            <span v-else>您的【目標野心 1A】此時大於【好奇復原 1B】，追求結果的意志正在加快內心資源的消耗。</span>
           </div>
           <div v-if="alertXingKu" class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded text-sm md:text-base text-blue-800 leading-relaxed">
             <strong class="block text-base md:text-lg mb-1.5">🌌 行苦防禦預警！(存在孤立)</strong>
@@ -431,9 +424,10 @@
           currentPage: 1,
           pageSize: 3,
 
-          // 核心鎖定：用以緩存今日一味藥的行為ID，防止打分時藥方反覆跳動
-          lockedRecommendationId: null,
-
+          // ==========================================
+          // 完整題庫：去道德化/字眼溫和化改編
+          // 初始分數均預設為 null (避免錨定效應)
+          // ==========================================
           behaviors: [
             // 1A/1B (Drive)
             { id: 1, module: '1A 目標野心', desc: '設定高標準目標：以此為前進動力，精益求精。', score: null, 
@@ -454,7 +448,7 @@
               cureFire: '今天試著放下一個「食之無味棄之可惜」的小執念，溫柔對自己說：「我允許自己視緣分而放手。」',
               cureIce: '為自己設定一個不耗力且必能完成的 2 分鐘微拉筋計畫，重新建立微小的掌控力。'
             },
-            { id: 5, module: '1A 目標野心', desc: '全力以赴投入：行動時全神貫注，在專注中感受心流與融入。', score: null, 
+            { id: 5, module: '1A 目標野心', desc: '全力以赴投入：行動時全神貫注，在專注中感受心流與融入.score: null', score: null, 
               frozenHint: '心流狀態被暫時鎖定，這通常是大腦在對當前重複性事務的意義感進行本能的安全調整。',
               overheatHint: '過度專注且停不下來，大腦正高速空轉，可能會不小心忽略了身體的疲勞警報。',
               cureFire: '設定每 40 分鐘起立伸懶腰、遠眺 3 分鐘，以溫和的韻律強行打破緊繃的高頻節奏。',
@@ -482,7 +476,7 @@
               frozenHint: '對結果產生退縮感，通常是此時內在心力稍顯單薄，本能地想要避免隨之而來的自責。',
               overheatHint: '過度攬責，將身邊人的喜怒哀樂或外在無常，都歸咎於自己的不足，承載了過沉的擔子。',
               cureFire: '在筆記中畫一條分界線，把超出自己掌控的外在環境與他人反應，輕輕撥回給「緣分與對方」。',
-              cureIce: '在微小決策上（比如今天中午吃什麼）快速做決定並坦然順應，不猶豫。'
+              cureIce: '在微小決策上（比如今天中午吃什麼）快速做決定並坦然順應，不反悔、不猶豫。'
             },
             { id: 14, module: '1B 好奇進化', desc: '保持日常學習：有規律地汲取新概念、技能或感興趣的智慧法雨。', score: null, 
               frozenHint: '吸納新知的頻寬變窄，這是大腦已被日常瑣務飽和，本能地拒絕再增加認知負載。',
@@ -503,7 +497,7 @@
               cureIce: '用極平實的筆調寫下最近一次小失誤的 1 個客觀因果規律與下次的物理防呆法，寫完便隨手丟掉。'
             },
             { id: 18, module: '1B 好奇進化', desc: '投入資源自我增值：願意投資時間或心力參與學習、交流，或尋求專家指引。', score: null, 
-              frozenHint: '拒絕在自我成長上投入心力，背後可能藏著一絲認為自己不配獲得細緻照顧的退縮。',
+              frozenHint: '拒絕在自我成長上投入心力，背後藏著一絲認為自己不配獲得細緻照顧的退縮。',
               overheatHint: '在補償心理下瘋狂購書或報課，往往會因無法消化而轉化為另一種沈重的焦慮債務。',
               cureFire: '今天謝絕任何新網課與新書，隨機挑出一本早已買下的小書，安心讀上 3 頁就好。',
               cureIce: '今天為自己的放鬆花一筆微小的開銷（如一杯好茶或一條香氛），用最簡單的物質來疼愛身心。'
@@ -531,17 +525,17 @@
             { id: 26, module: '2A 秩序規範', desc: '細分目標與排程：將大目標解構成清晰步驟，編排溫和有序的執行節奏。', score: null, 
               frozenHint: '抗拒排程，通常是因為眼前的壓力過於龐雜無序，大腦本能地用「不看、不理」來獲得短暫安寧。',
               overheatHint: '試圖用密不透風、毫無彈性的時間表，來對抗生活中隨時隨地可能發生的因緣變化。',
-              cureFire: '今天下午刻意挪出 1 小時的「神聖空白期」，不做計劃、不設死線，隨緣而動。',
+              cureFire: '今天下午刻意挪出 1 小時的「神神聖空白期」，不做計劃、不設死線，隨緣而動。',
               cureIce: '在小紙條上僅寫下「今天最舒服的一件事」，完成後溫柔撕去，不給大腦施加連帶的計劃重負。'
             },
-            { id: 27, module: '2A 秩序規範', desc: '善用清單輔助：透過柔性的待辦清單或日程表，協助梳理內在視野。', score: null, 
+            { id: 27, module: '2A 秩序規範', desc: '善用清單輔助：透過待辦清單 or 日程表，協助梳理內在視野。', score: null, 
               frozenHint: '抗拒列出清單，可能是在保護自己，逃避那些密密麻麻的未辦事項所帶來的催促感。',
               overheatHint: '淪為「清單的打勾機器」，完成任務變成了唯一的價值感來源，卻忘了過程的流動。',
               cureFire: '今天溫柔地從清單中劃掉 2 個其實可以延期、無傷大雅的邊緣任務，體驗「放下的自由」。',
               cureIce: '今天把腦海中一團亂麻的焦慮，全部寫在紙上。只要寫下來，大腦的內存就會瞬間釋放。'
             },
             { id: 28, module: '2A 秩序規範', desc: '遵循標準與程序：在特定事務上按照既定框架或指引，穩定、踏實地推行。', score: null, 
-              frozenHint: '對規矩抱持本能的排斥，或許是身心對長期高壓約束的一種無聲的、補償性的抗議。',
+              frozenHint: '對規矩抱持本能的排斥，或許是身心對長期高壓约束的一種無聲的、補償性的抗議。',
               overheatHint: '過度執著於教條和手冊，即使環境生變，依然僵化死守以規避責任或風險。',
               cureFire: '今天在不影響安全的前提下，繞過一項常規流程，體驗一次「隨性變通的靈活身段」。',
               cureIce: '今天挑選一項基礎工作，耐心地、一步一步完全按照標準程序做完，感受秩序帶來的踏實感。'
@@ -554,8 +548,8 @@
             },
             { id: 30, module: '2A 秩序規範', desc: '建立標準流程（SOP）：將重複性事務進行框架梳理，讓大腦在規律中省力。', score: null, 
               frozenHint: '抗拒框架化，可能是在以「人情與直覺」為盾牌，避免自己被冰冷的程序規則所物化。',
-              overheatHint: '生活裡的事與細節都要設定 SOP，給周圍的親友或同事帶來了略顯緊繃的條框壓力。',
-              cureFire: '今天完全憑感覺和當下的靈感去完成一件例行瑣事，不看任何標準，順其自然。',
+              overheatHint: '生活裡的事無鉅細都要設定 SOP，給周圍的親友或同事帶來了略顯緊繃的條框壓力。',
+              cureFire: '今天完全憑感覺 and 當下的靈感去完成一件例行瑣事，不看任何標準，順其自然。',
               cureIce: '把每天都要經歷的繁雜退信或回覆，寫好一個簡單範本，讓大腦明天可以直接複製，輕鬆省力。'
             },
             { id: 33, module: '2A 秩序規範', desc: '定期檢視與微調：在行進路上定期對表，不急躁，知曉當前坐標並彈性校準。', score: null, 
@@ -585,7 +579,7 @@
               cureIce: '回想最近一次突發小混亂，在紙記下「最壞的物理後果」，觀察其實際影響並非不可承受。'
             },
             { id: 41, module: '2B 敏捷破局', desc: '彈性調整執行手段：不執泥於單一路徑，能依據當前緣分與環境變化順勢應變。', score: null, 
-              frozenHint: '固執地死守舊章法，是因為此時將「規律」當成了唯一的救生圈，害怕變通會帶來秩序失控。',
+              frozenHint: '固執地死守舊章法，是因為此時將「規规律」當成了唯一的救生圈，害怕變通會帶來秩序失控。',
               overheatHint: '朝令夕改、一遇挫折便輕易轉換做法，實際上是內在對「深度耕耘需要耐心」的一種浮躁迴避。',
               cureFire: '今天面對一項卡頓的任務，給自己 15 分鐘的耐心，溫和堅持既有方案，不做輕浮微調。',
               cureIce: '今天遇到一個卡住的小問題時，試著問身邊的人：「如果是你，你會用什麼奇怪的方法解決？」並照著做一次。'
@@ -604,7 +598,7 @@
             },
             { id: 44, module: '2B 敏捷破局', desc: '即時排除眼前障礙：遇到問題唔逃避、唔拖延，逐一拆解並直接解決。', score: null, 
               frozenHint: '一見障礙便繞道走，是因為在心中將問題無限放大，給自己築起了一座巍峨的焦慮大山。',
-              overheatHint: '極度渴望「掃清障礙」，容易對攔路的事務表現出焦躁，缺乏繞道而行或與阻礙共處的智慧。',
+              overheatHint: '極度渴望「掃清障礙」，容易對攔路的事務表現出焦躁，缺乏繞道而行 or 與阻礙共處的智慧。',
               cureFire: '今天遇見一件不太順眼的小問題，嘗試與之「和平共處」一天，靜觀無常的因緣。',
               cureIce: '今天挑選一個你拖延逃避了很久的「極小障礙（例如回一封難搞的訊息）」，立刻用 3 分鐘把它處理掉。'
             },
@@ -641,7 +635,7 @@
               cureIce: '今天試著觀察一個身邊人的微表情，猜猜他今天心情好不好，不用說破，只是安靜地觀察。'
             },
             { id: 55, module: '3A 同理傾聽', desc: '包容多元性格與價值觀：接納每個人嘅獨特之處，唔以外表或過去評判他人。', score: null, 
-              frozenHint: '內在評判刻舌尖銳，通常是潛意識將自身對不完美的深度焦慮，投射到了外部世界。',
+              frozenHint: '內在評判刻薄尖銳，通常是潛意識將自身對不完美的深度焦慮，投射到了外部世界。',
               overheatHint: '一味無底線地包容他人侵犯底線的言行，這是在用寬大粉飾對衝突的畏懼。',
               cureFire: '今天勇敢地在心中對一個明顯不合理的人或事說：「你這樣做就是錯的，我不接受。」找回你的力量。',
               cureIce: '今天當你在心裡準備批評某人時，停下來找一個他身上的優點，對自己說：「其實他也有不容易的地方。」'
@@ -725,7 +719,7 @@
             { id: 77, module: '4A 邏輯解構', desc: '基於數據與證據推理：講求客觀事实，從海量資訊中篩選高可信度情報做判斷。', score: null, 
               frozenHint: '盲目迴避真實數據與客觀事实，寧願沉浸在飄渺幻覺中，是對現實真相的脆弱迴避。',
               overheatHint: '只信冰冷數字，徹底閹割了情感與人際中的非理性溫度，淪為一台冰冷的計算機器。',
-              cureFire: '今天做一個小決定時，完全拋棄數據和邏輯優劣，只憑你當下的「心情和直覺」去選。',
+              cureFire: '今天做一個小決定時，完全拋棄數據 and 邏輯優劣，只憑你當下的「心情和直覺」去選。',
               cureIce: '今天在面對一個讓你焦慮的問題時，拿出紙筆，寫下 3 個「已經發生的客觀事實」，把情緒剝離出去。'
             },
             { id: 78, module: '4A 邏輯解構', desc: '多維度批判性思考：習慣從唔同角度審視同一個問題，重新檢視既有結論。', score: null, 
@@ -836,7 +830,7 @@
           return Math.round((this.ratedCount / this.filteredBehaviors.length) * 100);
         },
 
-        // 智慧 AI 心靈診斷與實相提要生成邏輯
+        // 智慧 AI 心靈診斷與實相提要生成邏輯 (全動態生成)
         aiDiagnosisSummary() {
           if (this.ratedCount === 0) return "心若不照鏡，明鏡亦無塵。請在上方評分區拖動任意滑桿，AI 將立刻在此為您書寫個人專屬的心靈實相提要分析。";
 
@@ -891,7 +885,7 @@
           return result;
         },
 
-        // 已打分的分數平均計算 (未打分的模塊回歸 4 分平穩值)
+        // 已打分的分數平均計算 (未打分的模塊回歸 4 分平穩值，防範空運算)
         driveAvg() { return (this.scores['1A'] + this.scores['1B']) / 2; },
         executeAvg() { return (this.scores['2A'] + this.scores['2B']) / 2; },
         relationAvg() { return (this.scores['3A'] + this.scores['3B']) / 2; },
@@ -900,26 +894,12 @@
         overheatedBehaviors() { return this.filteredBehaviors.filter(b => b.score !== null && b.score >= 6); },
         frozenBehaviors() { return this.filteredBehaviors.filter(b => b.score !== null && b.score <= 2); },
 
-        // 核心修復：防止打分時藥方跳動，優先讀取鎖定緩存
         todayRecommendation() {
           const extremes = [...this.overheatedBehaviors, ...this.frozenBehaviors];
-          if (extremes.length === 0) {
-            this.lockedRecommendationId = null;
-            return null;
-          }
-          
-          // 如果已有鎖定緩存且仍在極端列表中，繼續保留
-          if (this.lockedRecommendationId !== null) {
-            const stillExtreme = extremes.find(e => e.id === this.lockedRecommendationId);
-            if (stillExtreme) return stillExtreme;
-          }
-
-          // 否則重新錨定一個最極端的行為，並寫入緩存
+          if (extremes.length === 0) return null;
           const seed = this.behaviors.reduce((sum, b) => sum + (b.score !== null ? b.score * b.id : 0), 0);
           const index = seed % extremes.length;
-          const chosen = extremes[index];
-          this.lockedRecommendationId = chosen.id;
-          return chosen;
+          return extremes[index];
         },
         alertTurbulence() {
           const limit = this.focusMode === 'all' ? 6 : 3;
@@ -959,10 +939,6 @@
           }
           return this.behaviors; 
         },
-
-        /* 核心 Bug 1 & 2 的修正： 
-           將 scores 方法正確聲明為對象屬性物件，並移除調用時的圓括號，讓它真正發揮響應式作用。
-        */
         scores() {
           return {
             '1A': this.getAverageByModule('1A 目標野心'),
@@ -976,6 +952,7 @@
           };
         },
 
+        // 1-7 制差值校準
         alertKuKu() {
           if (this.ratedCount === 0) return false;
           const tension1 = this.scores['2A'] - this.scores['3A'];
@@ -1002,7 +979,7 @@
         }
       },
       methods: {
-        // 滑桿變動處理
+        // 滑桿變動處理（消除預設值錨定）
         handleSliderChange(item, event) {
           item.score = Number(event.target.value);
           this.saveScores();
@@ -1075,6 +1052,7 @@
               const scoresMap = JSON.parse(saved);
               scoresMap.forEach(item => {
                 const behavior = this.behaviors.find(b => b.id === item.id);
+                // 兼容歷史數據：若老舊數據大於 7 分則按等比例安全映射到 1-7 分制
                 if (behavior && item.score !== undefined && item.score !== null) {
                   if (item.score > 7) {
                     behavior.score = Math.min(7, Math.round((item.score - 1) * 6 / 9) + 1);
@@ -1099,7 +1077,7 @@
           return '🟢 中道平穩';
         },
 
-        // 佛法防爆指南
+        // 因應 AI 智慧分析撮要，動態調整佛法防爆指南
         getSpiritualCure() {
           if (this.alertKuKu) {
             const detailCure = this.scores['2A'] - this.scores['3A'] >= 1.8 
@@ -1114,12 +1092,12 @@
               return "【成住壞空，無愧休息】當前動力暫歸寂滅。這是身心靈強制進入『真空狀態』的安全求救訊號。最上乘的解藥是完全卸下愧疚感、無壓力地大休息。去大自然散散步，或以極純粹、無用、不求上進的心情享受一片葉、一陣風，重新汲取元氣。";
             }
             return `【因緣果報，拒絕代償】當前『壞苦』警報微響，這意味著您正處於高強度的代償性透支階段，【目標野心 1A】此時顯著大於【好奇復原 1B】。
-            \n💡 專屬對治：最需要的解藥是『劃定神聖個人邊限』。今天大膽且溫和地，向外界無度索取您精力的事項說一聲「不」，在今天劃出至少 30 分鐘絕對神聖、不被干擾的空白滋養時間。`;
+            \n💡 專屬對治：最需要的解藥是『劃定神聖個人邊限』。今天大膽且溫和地，向外界無度索取您精力的事項（或是您心中過高的強迫性期望）說一聲「不」，在今天劃出至少 30 分鐘絕對神聖、不被干擾的空白滋養時間，這是最深層的慈悲。`;
           }
 
           if (this.alertXingKu) {
             return "【同體大悲，降維同心】當前『行苦』波動顯著。您的思維站得極高、看得很透，卻可能在潛意識中主動與周邊具體的事與溫暖的人產生了隔離，以尋求智識上的絕對安全感。
-            \n💡 專屬對治：解藥是『落地慈悲與具體溫度』。請走進真實的人間，不帶任何評判地去聆聽身邊一位同事或家人的碎碎念，或者親自打掃一下桌面。讓雙手去觸碰水與物件的具體溫度，重溫心靈的溫度連結。";
+            \n💡 專屬對治：解藥是『落地慈悲與具體溫度』。請走進真實的人間，不帶任何評判地去聆聽身邊一位同事或家人的碎碎念，或者親自打掃一下桌面。讓雙手去觸碰水與物件的具體溫度，在對具體事物的踏實打理中，重溫心靈的溫度連結。";
           }
 
           if (this.alertTurbulence) {
@@ -1151,7 +1129,7 @@
           return "【隨遇而安，守護此時】您目前在此範疇處於極佳的『能量平穩』狀態，各張力軸和諧。請保持當下的正念覺察（Mindfulness），不貪求、不嗔恨，平靜地過好當下。";
         },
 
-        // 動態調整與組裝基礎三味藥
+        // 因應當前最突出的極端行為，動態調整與組裝基礎三味藥
         getActionCure() {
           const rec = this.todayRecommendation;
 
@@ -1170,10 +1148,11 @@
             };
           }
 
+          // 如果沒有極端行為 (能量極度平穩)，則顯示中立平和的通用對治藥
           return {
             mindset: "【安住當下】當前的平穩是難得的福報因緣。不要執著於永遠維持這份完美，也不要為了未來尚未發生的波動而提前焦慮。明白無常是生命的本質，平靜順應即可。",
-            action: "【善因種子打卡】今天在紙上默默寫下 3 個讓您感到溫暖、安全或心存感激的日常細節，在心中默默致謝。",
-            awareness: "【5分鐘步行禪】在今天的步行中，將步伐放慢一倍，將全部的覺察力放在雙腳踏在地面時，重心在腳跟與腳尖之間移轉、抬起、落下的物理觸覺上，全神貫注。"
+            action: "【善因種子打卡】今天在紙上默默寫下 3 個讓您感到溫暖、安全或心存感激的日常細節（哪怕只是一杯剛好的溫水、一句真誠的問候），在心中默默致謝。",
+            awareness: "【5分鐘步行禪】在今天的步行（例如去洗手間或通勤）中，將步伐放慢一倍，將全部的覺察力放在雙腳踏在地面時，重心在腳跟與腳尖之間移轉、抬起、落下的物理觸覺上，全神貫注。"
           };
         }
       }
