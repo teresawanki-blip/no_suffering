@@ -372,7 +372,7 @@
         <!-- 藥方建議 -->
         <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-5 shadow-sm">
           <h4 class="font-bold text-base md:text-lg text-indigo-900 mb-3 flex items-center">
-            <span class="mr-2">💊</span> 防爆實相調和指南
+            <span class="mr-2">💊</span> 佛法防爆實相調和指南
           </h4>
           <p class="leading-relaxed text-base text-indigo-950 font-medium whitespace-pre-line mb-5">
             {{ getSpiritualCure() }}
@@ -401,24 +401,21 @@
             </button>
           </div>
 
-                  <!-- 卡片本體 (給 html2canvas 截圖用) -->
-          <div ref="prescriptionCard" class="bg-slate-950 text-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-md relative overflow-hidden min-h-[390px] flex flex-col justify-between">
-            
-            <!-- 嵌入宗教背景圖 (採用完全透明獨立覆蓋，防止背景色遮擋) -->
-            <div 
+          <!-- 卡片本體 (給 html2canvas 截圖用) -->
+          <div ref="prescriptionCard" class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-md relative overflow-hidden min-h-[390px] flex flex-col justify-between">
+
+            <!-- 嵌入宗教背景圖 (按需要調整了透明度，既呈現細節，又完全不遮擋文字) -->
+            <div
               class="absolute inset-0 bg-cover bg-center pointer-events-none transition-all duration-500"
-              :style="{ 
+              :style="{
                 backgroundImage: 'url(' + (spiritualMode === 'buddhism' ? buddhaBg : jesusBg) + ')',
-                opacity: spiritualMode === 'buddhism' ? 0.25 : 0.22
+                opacity: spiritualMode === 'buddhism' ? 0.16 : 0.12
               }"
             ></div>
-            
-            <!-- 黑色磨砂遮罩層：確保不論背景圖亮暗，字體都擁有高對比可讀性 -->
-
             <!-- 裝飾背景漸變球 -->
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500 opacity-20 rounded-full blur-2xl pointer-events-none"></div>
             <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-emerald-500 opacity-20 rounded-full blur-2xl pointer-events-none"></div>
-            
+
             <div class="relative z-10 flex-1 flex flex-col justify-between">
               <!-- 頂部列 -->
               <div class="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
